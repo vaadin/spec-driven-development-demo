@@ -33,6 +33,10 @@ The app runs on port 8080 (configurable via `PORT` env var).
 - `vaadin.allowed-packages` must include any new package that contains Vaadin components or Spring beans
 - `.mcp.json` — configures Vaadin docs MCP server and Playwright MCP for browser automation
 
+## Specifications
+
+Project specs live in `spec/`. Start with [`spec/README.md`](spec/README.md) for the process overview, file map, and AI agent guidance. Fill in context and architecture first, then create use cases from the template.
+
 ## MCP Tools
 
 This project has MCP servers configured for:
