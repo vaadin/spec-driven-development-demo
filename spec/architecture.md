@@ -1,21 +1,17 @@
 # Architecture
 
-> Technology stack and application structure. This drives how AI agents scaffold code.
->
-> **How to use:** Fill in the tables below. Replace all `[bracketed text]` with your content.
+> Technology stack and application structure. `pom.xml` is the source of truth for versions. Do not modify `pom.xml` without asking.
 
 ---
 
 ## 1. Technology Stack
 
-| Layer | Technology | Version | Notes |
-|-------|-----------|---------|-------|
-| **UI Framework** | Vaadin Flow (Aura theme) | 25.1 | Server-side Java UI |
-| **Backend Framework** | Spring Boot | 4.0 | Auto-configuration, embedded Tomcat |
-| **Language** | Java | 21 | LTS release |
-| **Build Tool** | Maven | — | Maven wrapper included |
-| **Database** | [e.g., PostgreSQL, H2] | [version] | [Production vs. dev profiles] |
-| **Testing** | [e.g., JUnit 5, TestBench] | [version] | [Notes] |
+- Vaadin Flow (Aura theme) — server-side Java UI
+- Spring Boot — auto-configuration, embedded Tomcat
+- Java
+- Maven (wrapper included)
+- Database: [e.g., PostgreSQL, H2]
+- Testing: [e.g., JUnit 5, TestBench]
 
 ---
 
@@ -30,16 +26,4 @@ com.example.specdriven/
     [FeatureRepository].java    — Data access (Spring Data)
 ```
 
-- Views go in feature-specific subpackages under `com.example.specdriven`
-- Routes are declared via `@Route("path")` and page titles via `@PageTitle`
-- Custom CSS: `src/main/resources/META-INF/resources/styles.css`
-- Auto-generated frontend: `src/main/frontend/generated/` (do not edit)
-
----
-
-## 3. Data Model *(optional)*
-
-| Entity | Key Fields | Relationships |
-|--------|-----------|---------------|
-| [Entity 1] | [field1, field2] | [Has many Entity2] |
-| [Entity 2] | [field1, field2] | [Belongs to Entity1] |
+- Application CSS: `src/main/resources/META-INF/resources/styles.css`

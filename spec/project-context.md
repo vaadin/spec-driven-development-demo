@@ -1,8 +1,6 @@
 # Project Context
 
 > High-level context for the project: the problem being solved, who it's for, what's in scope, and what constraints apply.
->
-> **How to use:** Fill in each section in order. Replace all `[bracketed text]` with your content.
 
 ---
 
@@ -22,14 +20,7 @@
 
 ---
 
-## 3. Stakeholders and Users
-
-| Stakeholder | Role |
-|-------------|------|
-| **[Name/Group]** | [Primary/Secondary] |
-| **[Name/Group]** | [Primary/Secondary] |
-
-### User Roles
+## 3. Users
 
 | Role | Description | Access Scope |
 |------|-------------|--------------|
@@ -39,6 +30,8 @@
 ---
 
 ## 4. Scope
+
+> High-level capabilities, not detailed features (those go in use cases).
 
 ### In Scope
 - [Feature/capability 1]
@@ -54,9 +47,7 @@
 
 ## 5. Constraints
 
-- [Mandated technology stack — e.g., Java 21, Spring Boot, Vaadin Flow]
 - [Platform or integration requirement]
-- [Budget, timeline, or resource limit]
 - [Policy or standard]
 
 > For technology stack and application structure details, see [`architecture.md`](architecture.md).

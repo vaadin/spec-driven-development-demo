@@ -11,7 +11,7 @@ Use the Playwright MCP server to visually verify each use case after implementat
 
 ### Steps
 
-1. **Start the application** — run `./mvnw` and wait for startup
+1. **Ensure the application is running**
 2. **Navigate to the route** — open the page defined in the use case's UI/Routes section
 3. **Walk through the main flow** — perform each step from the use case's Main Flow
 4. **Take screenshots** — capture the page state at key interaction points
