@@ -36,12 +36,23 @@
 
 ---
 
+## Implementation
+
+This view is implemented as a **React (Hilla) view** with a `@BrowserCallable` service.
+
+**Frontend:** `src/main/frontend/views/@index.tsx` — React component using Vaadin React components
+**Backend:** `@BrowserCallable` + `@AnonymousAllowed` service that returns today's movies with their show times
+
+The service provides a method to fetch movies showing today. Vaadin generates TypeScript client code from the `@BrowserCallable` service, giving the React view type-safe access to the backend.
+
+---
+
 ## UI / Routes
 
-- Grid or card layout listing today's movies
+- Card layout listing today's movies
 - Each card contains: poster image, movie title, list of show times
-- Clicking a card navigates to the movie details view
+- Clicking a card uses `useNavigate` to go to the movie details view
 
 | Route | Access | Notes |
 |-------|--------|-------|
-| `/` | public | Vaadin @Route(""), replaces existing placeholder view |
+| `/` | public | Hilla file-based route (`views/@index.tsx`), replaces existing placeholder view |

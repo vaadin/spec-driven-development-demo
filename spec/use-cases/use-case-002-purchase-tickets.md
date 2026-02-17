@@ -48,13 +48,26 @@
 
 ---
 
+## Implementation
+
+This view is implemented as a **React (Hilla) view** with a `@BrowserCallable` service.
+
+**Frontend:** `src/main/frontend/views/movie/{movieId}.tsx` — React component using Vaadin React components and `useParams` for the movie ID
+**Backend:** `@BrowserCallable` + `@AnonymousAllowed` service that provides:
+- Method to fetch movie details with today's show times
+- Method to purchase tickets (validates availability, creates booking, returns confirmation code)
+
+The service handles all business logic (availability checks, booking creation) server-side. Vaadin generates TypeScript client code from the `@BrowserCallable` service, giving the React view type-safe access to the backend.
+
+---
+
 ## UI / Routes
 
 - Top section: movie poster, title, and description
 - Show time selection: list or buttons for today's available times
 - Ticket form: number of tickets selector, name field, email field, purchase button
-- Confirmation view: displayed after successful purchase (can be same route or inline)
+- Confirmation view: displayed inline after successful purchase (component state toggle)
 
 | Route | Access | Notes |
 |-------|--------|-------|
-| `/movie/{movieId}` | public | Vaadin @Route("movie") with URL parameter |
+| `/movie/{movieId}` | public | Hilla file-based route (`views/movie/{movieId}.tsx`), uses `useParams` for movieId |

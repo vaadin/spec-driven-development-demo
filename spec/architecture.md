@@ -6,7 +6,8 @@
 
 ## 1. Technology Stack
 
-- Vaadin Flow (Aura theme) — server-side Java UI
+- Vaadin Flow (Aura theme) — server-side Java UI for admin views
+- Hilla (React + `@BrowserCallable`) — client-side React views for public pages
 - Spring Boot — auto-configuration, embedded Tomcat
 - Java
 - Maven (wrapper included)
@@ -17,12 +18,20 @@
 
 ## 2. Application Structure
 
+This is a **hybrid Flow + Hilla** application:
+- **Public views** (browse movies, purchase tickets) are React (Hilla) views in `src/main/frontend/views/`, backed by `@BrowserCallable` + `@AnonymousAllowed` services
+- **Admin views** (manage movies, manage shows, view bookings) are server-side Vaadin Flow views in Java
+
 ```
+src/main/frontend/views/
+  @index.tsx                    — Browse today's movies (Hilla React view)
+  movie/{movieId}.tsx           — Movie details + ticket purchase (Hilla React view)
+
 com.example.specdriven/
   Application.java              — Spring Boot entry point
   [feature-package]/
-    [FeatureView].java          — Vaadin @Route view
-    [FeatureService].java       — Business logic (Spring @Service)
+    [FeatureView].java          — Vaadin @Route view (admin views)
+    [FeatureService].java       — @BrowserCallable or @Service (business logic)
     [FeatureRepository].java    — Data access (Spring Data)
 ```
 
