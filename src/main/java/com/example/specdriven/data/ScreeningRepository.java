@@ -13,4 +13,7 @@ public interface ScreeningRepository extends JpaRepository<Screening, Long> {
                                          @Param("dayEnd") LocalDateTime dayEnd);
 
     long countByMovieAndStartTimeAfter(Movie movie, LocalDateTime dateTime);
+
+    @Query("SELECT s FROM Screening s JOIN FETCH s.movie ORDER BY s.startTime")
+    List<Screening> findAllWithMovie();
 }
