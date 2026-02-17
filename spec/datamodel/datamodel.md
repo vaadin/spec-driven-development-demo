@@ -4,4 +4,5 @@
 
 | Entity | Key Fields | Relationships |
 |--------|-----------|---------------|
-| [Entity 1] | [field1, field2] | [Has many Entity2] |
+| Movie | id (Long), title (String), description (String), posterFileName (String), durationMinutes (int) | Has many Screening |
+| Screening | id (Long), startTime (LocalDateTime), availableSeats (int) | ManyToOne → Movie |
