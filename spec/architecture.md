@@ -11,8 +11,8 @@
 - Spring Boot — auto-configuration, embedded Tomcat
 - Java
 - Maven (wrapper included)
-- Database: [e.g., PostgreSQL, H2]
-- Testing: [e.g., JUnit 5, TestBench]
+- Database: H2
+- Testing: JUnit 5, Vaadin TestBench (UI unit tests)
 
 ---
 
