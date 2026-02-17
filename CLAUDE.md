@@ -18,4 +18,5 @@ Project specs live in `spec/`. Read [`spec/README.md`](spec/README.md) first.
 ## Guardrails
 
 - Do not modify `pom.xml` without asking
+- Do not modify `vite.config.ts` without asking
 - Do not modify `spec/architecture.md` without asking
