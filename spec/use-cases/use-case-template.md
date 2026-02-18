@@ -52,3 +52,15 @@
 | Route | Access | Notes |
 |-------|--------|-------|
 | `[/path]` | [public/authenticated] | [Vaadin @Route] |
+
+---
+
+## Testing
+
+> List key test scenarios for UI unit tests. Each scenario maps to an acceptance criterion.
+
+| Scenario | Steps | Expected |
+|----------|-------|----------|
+| [e.g., "Add item"] | [Navigate, fill form, click Save] | [Item appears in grid] |
+| [e.g., "Validation"] | [Submit empty form] | [Error shown] |
+| [e.g., "Access control"] | [Anonymous user navigates to view] | [Redirected to login] |

@@ -27,3 +27,16 @@ com.example.specdriven/
 ```
 
 - Application CSS: `src/main/resources/META-INF/resources/styles.css`
+
+---
+
+## 3. Testing
+
+- **UI Unit Tests**: Vaadin TestBench (`SpringUIUnitTest`)
+  - Tests live in `src/test/java/`, mirroring the main package structure
+  - Extend `SpringUIUnitTest`, annotate with `@SpringBootTest`
+  - Use `@WithMockUser(roles = "ADMIN")` for admin views
+  - Use `@WithAnonymousUser` for access control tests
+  - Use `navigate(ViewClass.class)` to render views
+  - Use `$(ComponentClass.class)` to query components, `test(component)` to interact
+- **Visual Verification**: Playwright MCP during development (not automated)
