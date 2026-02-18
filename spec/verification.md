@@ -21,6 +21,7 @@ Use the Playwright MCP server to visually verify each use case after implementat
    - Interactive elements are clearly identifiable
    - Responsive behaviour works at common breakpoints (mobile, tablet, desktop)
 6. **Record results** — note any visual issues in the per-use-case checklist below
+7. **Write UI Unit tests** — after visual verification passes, write TestBench UI unit tests covering the acceptance criteria and key business rules from the use case spec
 
 ---
 
