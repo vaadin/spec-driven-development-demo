@@ -4,4 +4,5 @@
 
 | Entity | Key Fields | Relationships |
 |--------|-----------|---------------|
-| [Entity 1] | [field1, field2] | [Has many Entity2] |
+| Show | id, title, description, coverImageUrl, dateTime, price, availableSeats | Has many Purchase |
+| Purchase | id, confirmationCode (UUID), quantity, totalPrice, cardLastFour, purchasedAt | Belongs to Show |

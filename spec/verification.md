@@ -28,16 +28,97 @@ Use the Playwright MCP server to visually verify each use case after implementat
 
 > Copy this section for each use case. Name it: **UC-[NNN]: [Feature Title]**
 
-### UC-[NNN]: [Feature Title]
+### UC-001: Browse Shows
 
-**Use case spec:** [`use-case-NNN-name.md`](use-cases/use-case-NNN-name.md)
+**Use case spec:** [`use-case-001-browse-shows.md`](use-cases/use-case-001-browse-shows.md)
 **Verified by:** [Name/Agent]
 **Date:** [YYYY-MM-DD]
 
 #### Functional
 
 - [ ] Main flow works end-to-end as described in the spec
-- [ ] All business rules are enforced (list BR-IDs: [BR-01, BR-02, ...])
+- [ ] All business rules are enforced (BR-01, BR-02, BR-03)
+- [ ] All acceptance criteria pass
+- [ ] Error/edge cases handled appropriately
+
+#### Visual
+
+- [ ] Page layout matches expectations
+- [ ] Interactive elements respond correctly (hover, focus, click)
+- [ ] Loading states and transitions are smooth
+- [ ] Responsive at mobile and desktop widths
+
+#### Result
+
+- **Status:** [Pass / Fail / Partial]
+- **Notes:** [Any issues found or follow-up items]
+
+---
+
+### UC-002: View Show Details
+
+**Use case spec:** [`use-case-002-view-show-details.md`](use-cases/use-case-002-view-show-details.md)
+**Verified by:** [Name/Agent]
+**Date:** [YYYY-MM-DD]
+
+#### Functional
+
+- [ ] Main flow works end-to-end as described in the spec
+- [ ] All business rules are enforced (BR-01, BR-02, BR-03, BR-04)
+- [ ] All acceptance criteria pass
+- [ ] Error/edge cases handled appropriately
+
+#### Visual
+
+- [ ] Page layout matches expectations
+- [ ] Interactive elements respond correctly (hover, focus, click)
+- [ ] Loading states and transitions are smooth
+- [ ] Responsive at mobile and desktop widths
+
+#### Result
+
+- **Status:** [Pass / Fail / Partial]
+- **Notes:** [Any issues found or follow-up items]
+
+---
+
+### UC-003: Checkout
+
+**Use case spec:** [`use-case-003-checkout.md`](use-cases/use-case-003-checkout.md)
+**Verified by:** [Name/Agent]
+**Date:** [YYYY-MM-DD]
+
+#### Functional
+
+- [ ] Main flow works end-to-end as described in the spec
+- [ ] All business rules are enforced (BR-01, BR-02, BR-03, BR-04, BR-05, BR-06)
+- [ ] All acceptance criteria pass
+- [ ] Error/edge cases handled appropriately
+
+#### Visual
+
+- [ ] Page layout matches expectations
+- [ ] Interactive elements respond correctly (hover, focus, click)
+- [ ] Loading states and transitions are smooth
+- [ ] Responsive at mobile and desktop widths
+
+#### Result
+
+- **Status:** [Pass / Fail / Partial]
+- **Notes:** [Any issues found or follow-up items]
+
+---
+
+### UC-004: Ticket Confirmation
+
+**Use case spec:** [`use-case-004-ticket-confirmation.md`](use-cases/use-case-004-ticket-confirmation.md)
+**Verified by:** [Name/Agent]
+**Date:** [YYYY-MM-DD]
+
+#### Functional
+
+- [ ] Main flow works end-to-end as described in the spec
+- [ ] All business rules are enforced (BR-01, BR-02)
 - [ ] All acceptance criteria pass
 - [ ] Error/edge cases handled appropriately
 

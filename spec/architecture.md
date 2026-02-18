@@ -10,8 +10,8 @@
 - Spring Boot — auto-configuration, embedded Tomcat
 - Java
 - Maven (wrapper included)
-- Database: [e.g., PostgreSQL, H2]
-- Testing: [e.g., JUnit 5, TestBench]
+- Database: H2 (in-memory) — data resets on restart; acceptable for POC
+- Testing: JUnit 5, Spring Boot Test
 
 ---
 
@@ -20,10 +20,16 @@
 ```
 com.example.specdriven/
   Application.java              — Spring Boot entry point
-  [feature-package]/
-    [FeatureView].java          — Vaadin @Route view
-    [FeatureService].java       — Business logic (Spring @Service)
-    [FeatureRepository].java    — Data access (Spring Data)
+  show/
+    ShowListView.java           — Vaadin @Route: browse available shows
+    ShowDetailView.java         — Vaadin @Route: show description + ticket selector
+    ShowService.java            — Show business logic (Spring @Service)
+    ShowRepository.java         — Show data access (Spring Data)
+  purchase/
+    CheckoutView.java           — Vaadin @Route: order summary + credit card form
+    TicketConfirmationView.java — Vaadin @Route: displays ticket with UUID
+    PurchaseService.java        — Purchase/payment logic (Spring @Service)
+    PurchaseRepository.java     — Purchase data access (Spring Data)
 ```
 
 - Application CSS: `src/main/resources/META-INF/resources/styles.css`
