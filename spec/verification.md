@@ -31,105 +31,105 @@ Use the Playwright MCP server to visually verify each use case after implementat
 ### UC-001: Browse Shows
 
 **Use case spec:** [`use-case-001-browse-shows.md`](use-cases/use-case-001-browse-shows.md)
-**Verified by:** [Name/Agent]
-**Date:** [YYYY-MM-DD]
+**Verified by:** Claude
+**Date:** 2026-02-18
 
 #### Functional
 
-- [ ] Main flow works end-to-end as described in the spec
-- [ ] All business rules are enforced (BR-01, BR-02, BR-03)
-- [ ] All acceptance criteria pass
-- [ ] Error/edge cases handled appropriately
+- [x] Main flow works end-to-end as described in the spec
+- [x] All business rules are enforced (BR-01, BR-02, BR-03)
+- [x] All acceptance criteria pass
+- [x] Error/edge cases handled appropriately
 
 #### Visual
 
-- [ ] Page layout matches expectations
-- [ ] Interactive elements respond correctly (hover, focus, click)
-- [ ] Loading states and transitions are smooth
-- [ ] Responsive at mobile and desktop widths
+- [x] Page layout matches expectations
+- [x] Interactive elements respond correctly (hover, focus, click)
+- [x] Loading states and transitions are smooth
+- [x] Responsive at mobile and desktop widths
 
 #### Result
 
-- **Status:** [Pass / Fail / Partial]
-- **Notes:** [Any issues found or follow-up items]
+- **Status:** Pass
+- **Notes:** All 6 shows displayed in card grid. Sold-out shows (Les Misérables, The Lion King) greyed out with SOLD OUT badge and not clickable. Shows sorted by date (soonest first). Low-stock badge shown for Wicked (3 seats). Responsive layout: 2 columns on desktop, 1 column on mobile.
 
 ---
 
 ### UC-002: View Show Details
 
 **Use case spec:** [`use-case-002-view-show-details.md`](use-cases/use-case-002-view-show-details.md)
-**Verified by:** [Name/Agent]
-**Date:** [YYYY-MM-DD]
+**Verified by:** Claude
+**Date:** 2026-02-18
 
 #### Functional
 
-- [ ] Main flow works end-to-end as described in the spec
-- [ ] All business rules are enforced (BR-01, BR-02, BR-03, BR-04)
-- [ ] All acceptance criteria pass
-- [ ] Error/edge cases handled appropriately
+- [x] Main flow works end-to-end as described in the spec
+- [x] All business rules are enforced (BR-01, BR-02, BR-03, BR-04)
+- [x] All acceptance criteria pass
+- [x] Error/edge cases handled appropriately
 
 #### Visual
 
-- [ ] Page layout matches expectations
-- [ ] Interactive elements respond correctly (hover, focus, click)
-- [ ] Loading states and transitions are smooth
-- [ ] Responsive at mobile and desktop widths
+- [x] Page layout matches expectations
+- [x] Interactive elements respond correctly (hover, focus, click)
+- [x] Loading states and transitions are smooth
+- [x] Responsive at mobile and desktop widths
 
 #### Result
 
-- **Status:** [Pass / Fail / Partial]
-- **Notes:** [Any issues found or follow-up items]
+- **Status:** Pass
+- **Notes:** Cover image, title, description, date/time, and price per ticket all displayed. Ticket quantity selector with +/- step buttons, defaults to 1, min 1, max min(6, availableSeats). Subtotal updates dynamically on quantity change (verified: 3 × $54.99 = $164.97). "Buy Tickets" navigates to checkout with correct params. On mobile, image stacks above content. Back button returns to show list.
 
 ---
 
 ### UC-003: Checkout
 
 **Use case spec:** [`use-case-003-checkout.md`](use-cases/use-case-003-checkout.md)
-**Verified by:** [Name/Agent]
-**Date:** [YYYY-MM-DD]
+**Verified by:** Claude
+**Date:** 2026-02-18
 
 #### Functional
 
-- [ ] Main flow works end-to-end as described in the spec
-- [ ] All business rules are enforced (BR-01, BR-02, BR-03, BR-04, BR-05, BR-06)
-- [ ] All acceptance criteria pass
-- [ ] Error/edge cases handled appropriately
+- [x] Main flow works end-to-end as described in the spec
+- [x] All business rules are enforced (BR-01, BR-02, BR-03, BR-04, BR-05, BR-06)
+- [x] All acceptance criteria pass
+- [x] Error/edge cases handled appropriately
 
 #### Visual
 
-- [ ] Page layout matches expectations
-- [ ] Interactive elements respond correctly (hover, focus, click)
-- [ ] Loading states and transitions are smooth
-- [ ] Responsive at mobile and desktop widths
+- [x] Page layout matches expectations
+- [x] Interactive elements respond correctly (hover, focus, click)
+- [x] Loading states and transitions are smooth
+- [x] Responsive at mobile and desktop widths
 
 #### Result
 
-- **Status:** [Pass / Fail / Partial]
-- **Notes:** [Any issues found or follow-up items]
+- **Status:** Pass
+- **Notes:** Order summary displays show title, date/time, quantity, price per ticket, and total. Credit card form has card number, expiry (MM/YY), and CVV fields. Validation tested: empty fields show clear error messages ("Card number must be 16 digits", "Use MM/YY format", "CVV must be 3 digits"). Submitting valid card (4111111111111111, 12/27, 123) navigates to confirmation. Seats decremented after purchase (verified Chicago 200 → 197). Missing/invalid query params redirect to home.
 
 ---
 
 ### UC-004: Ticket Confirmation
 
 **Use case spec:** [`use-case-004-ticket-confirmation.md`](use-cases/use-case-004-ticket-confirmation.md)
-**Verified by:** [Name/Agent]
-**Date:** [YYYY-MM-DD]
+**Verified by:** Claude
+**Date:** 2026-02-18
 
 #### Functional
 
-- [ ] Main flow works end-to-end as described in the spec
-- [ ] All business rules are enforced (BR-01, BR-02)
-- [ ] All acceptance criteria pass
-- [ ] Error/edge cases handled appropriately
+- [x] Main flow works end-to-end as described in the spec
+- [x] All business rules are enforced (BR-01, BR-02)
+- [x] All acceptance criteria pass
+- [x] Error/edge cases handled appropriately
 
 #### Visual
 
-- [ ] Page layout matches expectations
-- [ ] Interactive elements respond correctly (hover, focus, click)
-- [ ] Loading states and transitions are smooth
-- [ ] Responsive at mobile and desktop widths
+- [x] Page layout matches expectations
+- [x] Interactive elements respond correctly (hover, focus, click)
+- [x] Loading states and transitions are smooth
+- [x] Responsive at mobile and desktop widths
 
 #### Result
 
-- **Status:** [Pass / Fail / Partial]
-- **Notes:** [Any issues found or follow-up items]
+- **Status:** Pass
+- **Notes:** UUID confirmation code displayed prominently in dashed-border box. Show title, date/time, ticket count, and total paid shown below. Page accessible via direct URL (tested navigating to /ticket/{uuid} — loads correctly). Clean centered layout with "Browse More Shows" button. Invalid confirmation codes show "Ticket not found" with a back button.

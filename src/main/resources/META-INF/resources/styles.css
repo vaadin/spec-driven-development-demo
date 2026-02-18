@@ -1,1 +1,362 @@
-/* Add your styles here */
+/* ===== Global ===== */
+body {
+    margin: 0;
+    background: #f5f5f5;
+}
+
+/* ===== App Header ===== */
+.app-header {
+    margin: 0 0 0.25rem 0;
+    font-size: 2rem;
+    color: #1a1a2e;
+}
+
+.app-subtitle {
+    margin: 0 0 1.5rem 0;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* ===== Show Grid (UC-001) ===== */
+.show-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.show-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.show-card:not(.sold-out):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.show-card.sold-out {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.show-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.show-card-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.show-card-title {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #1a1a2e;
+}
+
+.show-card-date {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.show-card-price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d6a4f;
+}
+
+.sold-out-badge {
+    display: inline-block;
+    background: #dc3545;
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    width: fit-content;
+    margin-top: 0.25rem;
+}
+
+.low-stock-badge {
+    display: inline-block;
+    background: #ff8c00;
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: fit-content;
+    margin-top: 0.25rem;
+}
+
+/* ===== Back Button ===== */
+.back-button {
+    margin-bottom: 1rem;
+    align-self: flex-start;
+}
+
+/* ===== Show Detail (UC-002) ===== */
+.detail-layout {
+    display: flex;
+    gap: 2rem;
+    max-width: 900px;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.detail-image {
+    width: 350px;
+    min-height: 300px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.detail-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.detail-date {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.detail-description {
+    color: #444;
+    line-height: 1.6;
+}
+
+.detail-price {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2d6a4f;
+}
+
+.detail-subtotal {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.ticket-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.ticket-quantity {
+    width: 120px;
+}
+
+.buy-button {
+    margin-top: 0.5rem;
+}
+
+/* ===== Checkout (UC-003) ===== */
+.checkout-view {
+    align-items: center;
+}
+
+.checkout-header {
+    margin-bottom: 1rem;
+}
+
+.order-summary {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.summary-show-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.summary-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.summary-tickets {
+    color: #444;
+}
+
+.summary-total {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2d6a4f;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #eee;
+}
+
+.payment-form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.expiry-cvv-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.expiry-cvv-row > * {
+    flex: 1;
+}
+
+.pay-button {
+    margin-top: 0.5rem;
+}
+
+/* ===== Ticket Confirmation (UC-004) ===== */
+.confirmation-view {
+    background: #f5f5f5;
+}
+
+.ticket-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ticket-header {
+    margin: 0;
+    color: #1a1a2e;
+}
+
+.ticket-success-msg {
+    color: #2d6a4f;
+    font-weight: 500;
+    margin: 0;
+}
+
+.confirmation-code-section {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.code-label {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.confirmation-code {
+    font-size: 1.15rem;
+    font-weight: 700;
+    font-family: monospace;
+    background: #f0f7f4;
+    border: 2px dashed #2d6a4f;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    color: #1a1a2e;
+    word-break: break-all;
+}
+
+.ticket-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    width: 100%;
+    text-align: center;
+}
+
+.ticket-show-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.ticket-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.ticket-count {
+    color: #444;
+}
+
+.ticket-total {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2d6a4f;
+    margin-top: 0.25rem;
+}
+
+.browse-more-button {
+    margin-top: 1.5rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .show-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-layout {
+        flex-direction: column;
+    }
+
+    .detail-image {
+        width: 100%;
+        height: 220px;
+    }
+
+    .ticket-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .confirmation-code {
+        font-size: 0.95rem;
+    }
+}
