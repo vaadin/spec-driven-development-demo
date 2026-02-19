@@ -54,7 +54,7 @@ public class TicketCheckoutView extends VerticalLayout implements BeforeEnterObs
         removeAll();
 
         Button backBtn = new Button("Back to Details",
-                e -> UI.getCurrent().navigate("ticket/" + ticket.getId()));
+                e -> UI.getCurrent().navigate(TicketDetailView.class, ticket.getId()));
         backBtn.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
         add(backBtn);
 
@@ -62,11 +62,7 @@ public class TicketCheckoutView extends VerticalLayout implements BeforeEnterObs
 
         // Order summary
         Div summary = new Div();
-        summary.getStyle()
-                .set("background", "var(--lumo-contrast-5pct)")
-                .set("border-radius", "8px")
-                .set("padding", "16px")
-                .set("margin-bottom", "16px");
+        summary.addClassName("content-box");
 
         String modeLabel = ticket.getTransitMode().name().charAt(0)
                 + ticket.getTransitMode().name().substring(1).toLowerCase();
@@ -80,7 +76,7 @@ public class TicketCheckoutView extends VerticalLayout implements BeforeEnterObs
 
         BigDecimal total = ticket.getPrice().multiply(BigDecimal.valueOf(quantity));
         Paragraph totalP = new Paragraph(String.format("Total: $%.2f", total));
-        totalP.getStyle().set("font-weight", "bold").set("font-size", "var(--lumo-font-size-xl)");
+        totalP.addClassName("price-text");
         summary.add(totalP);
         add(summary);
 
@@ -115,7 +111,7 @@ public class TicketCheckoutView extends VerticalLayout implements BeforeEnterObs
         Button purchaseBtn = new Button("Purchase");
         purchaseBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         purchaseBtn.setEnabled(false);
-        purchaseBtn.getStyle().set("margin-top", "16px");
+        purchaseBtn.addClassName("action-spacing");
         add(purchaseBtn);
 
         // Validation: enable button when all fields valid
@@ -136,7 +132,8 @@ public class TicketCheckoutView extends VerticalLayout implements BeforeEnterObs
             String cardLastFour = cardNumberField.getValue()
                     .substring(cardNumberField.getValue().length() - 4);
             PurchaseOrder order = purchaseService.createPurchase(ticketId, quantity, cardLastFour);
-            UI.getCurrent().navigate("confirmation/" + order.getConfirmationCode().toString());
+            UI.getCurrent().navigate(TicketConfirmationView.class,
+                    order.getConfirmationCode().toString());
         });
     }
 }

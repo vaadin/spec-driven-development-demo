@@ -36,7 +36,7 @@ public class TicketBrowseView extends VerticalLayout {
         add(cardGrid);
 
         cardGrid.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        cardGrid.getStyle().set("gap", "16px");
+        cardGrid.addClassName("ticket-card-grid");
         cardGrid.setWidthFull();
 
         showTickets(ticketService.findAll());
@@ -45,7 +45,7 @@ public class TicketBrowseView extends VerticalLayout {
     private HorizontalLayout createFilterBar() {
         HorizontalLayout bar = new HorizontalLayout();
         bar.setSpacing(true);
-        bar.getStyle().set("flex-wrap", "wrap");
+        bar.addClassName("filter-bar");
 
         Button allBtn = createFilterButton("All", null);
         allBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -87,50 +87,29 @@ public class TicketBrowseView extends VerticalLayout {
     private Div createTicketCard(Ticket ticket) {
         Div card = new Div();
         card.addClassName("ticket-card");
-        card.getStyle()
-                .set("flex", "1 1 300px")
-                .set("max-width", "400px")
-                .set("border", "1px solid var(--lumo-contrast-20pct)")
-                .set("border-radius", "8px")
-                .set("padding", "20px")
-                .set("cursor", "pointer")
-                .set("transition", "box-shadow 0.2s");
 
         String modeLabel = ticket.getTransitMode().name().charAt(0)
                 + ticket.getTransitMode().name().substring(1).toLowerCase();
         String typeLabel = ticket.getTicketType() == TicketType.SINGLE_RIDE ? "Single Ride" : "Day Pass";
 
         H3 name = new H3(ticket.getName());
-        name.getStyle().set("margin", "0 0 8px 0");
+        name.addClassName("ticket-card-title");
 
         Span mode = new Span(modeLabel);
-        mode.getStyle()
-                .set("background", "var(--lumo-primary-color-10pct)")
-                .set("color", "var(--lumo-primary-text-color)")
-                .set("padding", "2px 8px")
-                .set("border-radius", "4px")
-                .set("font-size", "var(--lumo-font-size-s)");
+        mode.addClassNames("badge", "badge-mode");
 
         Span type = new Span(typeLabel);
-        type.getStyle()
-                .set("background", "var(--lumo-contrast-10pct)")
-                .set("padding", "2px 8px")
-                .set("border-radius", "4px")
-                .set("font-size", "var(--lumo-font-size-s)")
-                .set("margin-left", "8px");
+        type.addClassNames("badge", "badge-type");
 
         HorizontalLayout badges = new HorizontalLayout(mode, type);
         badges.setSpacing(false);
-        badges.getStyle().set("margin-bottom", "12px");
+        badges.addClassName("ticket-card-badges");
 
         Paragraph price = new Paragraph(String.format("$%.2f", ticket.getPrice()));
-        price.getStyle()
-                .set("font-size", "var(--lumo-font-size-xl)")
-                .set("font-weight", "bold")
-                .set("margin", "0");
+        price.addClassNames("price-text", "ticket-card-price");
 
         card.add(name, badges, price);
-        card.addClickListener(e -> UI.getCurrent().navigate("ticket/" + ticket.getId()));
+        card.addClickListener(e -> UI.getCurrent().navigate(TicketDetailView.class, ticket.getId()));
 
         return card;
     }

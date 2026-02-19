@@ -14,8 +14,10 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteParameters;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 @Route("ticket")
 @PageTitle("Ticket Details")
@@ -41,7 +43,8 @@ public class TicketDetailView extends VerticalLayout implements HasUrlParameter<
     private void buildView(Ticket ticket) {
         removeAll();
 
-        Button backBtn = new Button("Back to Browse", e -> UI.getCurrent().navigate(""));
+        Button backBtn = new Button("Back to Browse",
+                e -> UI.getCurrent().navigate(TicketBrowseView.class));
         backBtn.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
         add(backBtn);
 
@@ -52,20 +55,10 @@ public class TicketDetailView extends VerticalLayout implements HasUrlParameter<
         String typeLabel = ticket.getTicketType() == TicketType.SINGLE_RIDE ? "Single Ride" : "Day Pass";
 
         Span mode = new Span(modeLabel);
-        mode.getStyle()
-                .set("background", "var(--lumo-primary-color-10pct)")
-                .set("color", "var(--lumo-primary-text-color)")
-                .set("padding", "2px 8px")
-                .set("border-radius", "4px")
-                .set("font-size", "var(--lumo-font-size-s)");
+        mode.addClassNames("badge", "badge-mode");
 
         Span type = new Span(typeLabel);
-        type.getStyle()
-                .set("background", "var(--lumo-contrast-10pct)")
-                .set("padding", "2px 8px")
-                .set("border-radius", "4px")
-                .set("font-size", "var(--lumo-font-size-s)")
-                .set("margin-left", "8px");
+        type.addClassNames("badge", "badge-type");
 
         HorizontalLayout badges = new HorizontalLayout(mode, type);
         badges.setSpacing(false);
@@ -74,7 +67,7 @@ public class TicketDetailView extends VerticalLayout implements HasUrlParameter<
         add(new Paragraph(ticket.getDescription()));
 
         H3 priceLabel = new H3(String.format("$%.2f per ticket", ticket.getPrice()));
-        priceLabel.getStyle().set("margin-top", "16px");
+        priceLabel.addClassName("action-spacing");
         add(priceLabel);
 
         IntegerField quantityField = new IntegerField("Quantity");
@@ -86,9 +79,7 @@ public class TicketDetailView extends VerticalLayout implements HasUrlParameter<
         add(quantityField);
 
         Paragraph subtotal = new Paragraph();
-        subtotal.getStyle()
-                .set("font-size", "var(--lumo-font-size-xl)")
-                .set("font-weight", "bold");
+        subtotal.addClassName("price-text");
         updateSubtotal(subtotal, ticket.getPrice(), 1);
         add(subtotal);
 
@@ -100,10 +91,13 @@ public class TicketDetailView extends VerticalLayout implements HasUrlParameter<
         Button checkoutBtn = new Button("Continue to Checkout",
                 e -> {
                     int qty = quantityField.getValue() != null ? quantityField.getValue() : 1;
-                    UI.getCurrent().navigate("checkout/" + ticket.getId() + "/" + qty);
+                    UI.getCurrent().navigate(TicketCheckoutView.class,
+                            new RouteParameters(Map.of(
+                                    "ticketId", String.valueOf(ticket.getId()),
+                                    "quantity", String.valueOf(qty))));
                 });
         checkoutBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        checkoutBtn.getStyle().set("margin-top", "16px");
+        checkoutBtn.addClassName("action-spacing");
         add(checkoutBtn);
     }
 
