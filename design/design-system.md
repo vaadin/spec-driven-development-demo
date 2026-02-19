@@ -127,16 +127,48 @@ font-family: Inter, system-ui, -apple-system, sans-serif;
 - Card internal padding: 18–24px
 - Maximum content width: 600px (centered on desktop, full-width on mobile)
 
+### Responsive Breakpoints
+
+| Breakpoint | Width | Usage |
+|------------|-------|-------|
+| Mobile | < 480px | Single-column cards, stacked layouts |
+| Tablet | 480–767px | 2-column card grid, stacked detail/checkout |
+| Desktop | ≥ 768px | 4-column card grid, side-by-side detail/checkout layouts |
+
+### Content Width
+- **Mobile/Tablet:** Full width with 16px horizontal padding
+- **Desktop:** `max-width: 960px`, centered with `margin: 0 auto`, 40px horizontal padding
+- **Confirmation page (all sizes):** `max-width: 640px`, centered — this page benefits from a narrow, focused layout
+
 ### Browse Grid
 - **Mobile (< 480px):** 1 column
-- **Tablet+ (≥ 480px):** 2 columns
-- Gap: 12px
+- **Tablet (480–767px):** 2 columns
+- **Desktop (≥ 768px):** 4 columns
+- Gap: 12px (mobile/tablet), 16px (desktop)
 - Cards have `border-left: 3px solid {mode-color}`
 
+### Detail Page Layout
+- **Mobile/Tablet:** Single column — ticket info, then quantity/subtotal, then CTA, all stacked vertically
+- **Desktop:** Two-column grid — `1fr 380px`
+  - **Left column:** Ticket info card (emoji, name, badges, description, price)
+  - **Right column:** Purchase panel card (quantity stepper, subtotal box, CTA button)
+
+### Checkout Page Layout
+- **Mobile/Tablet:** Single column — order summary card on top, payment form card below
+- **Desktop:** Two-column grid — `1fr 400px`
+  - **Left column:** Payment details card (form fields + Purchase button)
+  - **Right column:** Order summary card with `position: sticky; top: 24px` — stays visible while scrolling the form
+  - Note: on desktop the summary moves to the right sidebar; on mobile it stays above the form
+
+### Confirmation Page Layout
+- **All sizes:** Single centered column, `max-width: 640px`
+- Desktop gets more vertical padding (48px top vs 20px on mobile)
+- UUID code font-size increases to 18px on desktop (15px on mobile)
+
 ### Touch Targets
-- All buttons: minimum 44px height
-- Quantity stepper buttons: 48×48px
-- Filter buttons: min 36px height, 14px horizontal padding
+- All buttons: minimum 44px height (48px on desktop)
+- Quantity stepper buttons: 48×48px (mobile), 52×52px (desktop)
+- Filter tab padding: 10px 14px (mobile), 10px 20px (desktop)
 - Card tap area: entire card surface
 
 ---
@@ -312,8 +344,9 @@ Validation Error:
 Container:
   - background: var(--surface-card)
   - border-radius: 14px
-  - padding: 18px
+  - padding: 18px (mobile), 24px (desktop)
   - border: 1px solid var(--border-default)
+  - Desktop: position: sticky, top: 24px (keeps summary visible while scrolling form)
 
 Section Header:
   - "ORDER SUMMARY"
@@ -321,10 +354,17 @@ Section Header:
   - text-transform: uppercase, letter-spacing: 1px
   - margin-bottom: 12px
 
-Layout:
+Mobile Layout:
   - Flex row, space-between
   - Left: ticket name (15px, 700, primary) + subtitle line (13px, muted) + unit price (12px, dim)
   - Right: total price (24px, 800, accent-primary)
+
+Desktop Layout:
+  - Ticket row: mode emoji in 48x48 rounded box (mode-color at 10% bg), name + subtitle to the right
+  - Divider line
+  - Quantity and Unit Price as label/value rows
+  - Divider line
+  - Total: label left (15px, 600, secondary), value right (28px, 800, accent-primary)
 ```
 
 ### 5.9 Confirmation Code Block
@@ -408,32 +448,54 @@ Subtitle: "Show this code when boarding"
 
 ## 6. Screen-by-Screen Layout
 
+> Mobile layouts shown first, desktop variants below each.
+
 ### 6.1 Browse (`/`)
 
+**Mobile (1 column):**
 ```
 ┌─────────────────────────────┐
 │  Transit Tickets        [h1]│
 │  Find and purchase...  [sub]│
-│  ─────────────────────────  │
-│  All  Bus  Train  Metro  Fe │ ← underline filter tabs
-│  ═══                        │ ← active underline on selected
+│  All  Bus  Train  Metro  Fe │
+│  ═══                        │
 ├─────────────────────────────┤
-│ ┌─────────┐ ┌─────────┐    │
-│ │▌🚌      │ │▌🚌      │    │ ← 3px left border = mode color
-│ │▌Bus SR  │ │▌Bus DP  │    │
-│ │▌$2.50   │ │▌$7.00   │    │
-│ └─────────┘ └─────────┘    │
-│ ┌─────────┐ ┌─────────┐    │
-│ │▌🚆      │ │▌🚆      │    │
-│ │▌Train SR│ │▌Train DP│    │
-│ │▌$4.50   │ │▌$12.00  │    │
-│ └─────────┘ └─────────┘    │
+│ ┌─────────────────────────┐ │
+│ │▌🚌 Bus Single Ride     │ │
+│ │▌[Bus] [Single] · $2.50 │ │
+│ └─────────────────────────┘ │
+│ ┌─────────────────────────┐ │
+│ │▌🚌 Bus Day Pass        │ │
+│ │▌[Bus] [Day Pass]· $7.00│ │
+│ └─────────────────────────┘ │
 │        ... more cards       │
 └─────────────────────────────┘
 ```
 
+**Desktop (4 columns, max-width 960px centered):**
+```
+┌──────────────────────────────────────────────────────────────┐
+│  Transit Tickets                                             │
+│  Find and purchase your ride                                 │
+│  All    Bus    Train    Metro    Ferry                        │
+│  ════                                                        │
+├──────────────────────────────────────────────────────────────┤
+│ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ │
+│ │▌🚌        │ │▌🚌        │ │▌🚆        │ │▌🚆        │ │
+│ │▌Bus SR    │ │▌Bus DP    │ │▌Train SR  │ │▌Train DP  │ │
+│ │▌$2.50    │ │▌$7.00    │ │▌$4.50    │ │▌$12.00   │ │
+│ └────────────┘ └────────────┘ └────────────┘ └────────────┘ │
+│ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ │
+│ │▌🚇        │ │▌🚇        │ │▌⛴️        │ │▌⛴️        │ │
+│ │▌Metro SR  │ │▌Metro DP  │ │▌Ferry SR  │ │▌Ferry DP  │ │
+│ │▌$3.00    │ │▌$9.00    │ │▌$5.00    │ │▌$14.00   │ │
+│ └────────────┘ └────────────┘ └────────────┘ └────────────┘ │
+└──────────────────────────────────────────────────────────────┘
+```
+
 ### 6.2 Detail (`/ticket/{id}`)
 
+**Mobile (stacked):**
 ```
 ┌─────────────────────────────┐
 │  ← Back                     │
@@ -442,25 +504,39 @@ Subtitle: "Show this code when boarding"
 │  │  🚌                   │  │
 │  │  Bus Single Ride [h2] │  │
 │  │  [Bus] [Single Ride]  │  │
-│  │                       │  │
 │  │  One-way trip on...   │  │
-│  │                       │  │
 │  │  $2.50 per ticket     │  │
-│  │                       │  │
 │  │  Quantity             │  │
 │  │  [ − ]  1  [ + ]     │  │
-│  │                       │  │
 │  │  ┌─ Subtotal ──────┐ │  │
 │  │  │  $2.50           │ │  │
 │  │  └─────────────────┘ │  │
-│  │                       │  │
 │  │  [Continue to Checkout]│  │
 │  └───────────────────────┘  │
 └─────────────────────────────┘
 ```
 
+**Desktop (two-column: info 1fr | purchase panel 380px):**
+```
+┌──────────────────────────────────────────────────────────────┐
+│  ← Back to Browse                                            │
+├─────────────────────────────────┬────────────────────────────┤
+│  ┌───────────────────────────┐  │  ┌──────────────────────┐  │
+│  │  🚌                       │  │  │  Quantity             │  │
+│  │  Bus Single Ride     [h2] │  │  │  [ − ]  1  [ + ]    │  │
+│  │  [Bus] [Single Ride]      │  │  │                      │  │
+│  │                           │  │  │  ┌─ Subtotal ──────┐│  │
+│  │  One-way trip on any      │  │  │  │  $2.50          ││  │
+│  │  city bus route            │  │  │  └────────────────┘│  │
+│  │                           │  │  │                      │  │
+│  │  $2.50 per ticket         │  │  │ [Continue to Checkout]│  │
+│  └───────────────────────────┘  │  └──────────────────────┘  │
+└─────────────────────────────────┴────────────────────────────┘
+```
+
 ### 6.3 Checkout (`/checkout/{ticketId}/{quantity}`)
 
+**Mobile (stacked: summary on top, payment below):**
 ```
 ┌─────────────────────────────┐
 │  ← Back to Details          │
@@ -472,7 +548,6 @@ Subtitle: "Show this code when boarding"
 │  │  Bus · Single · Qty:1 │  │
 │  │  Unit: $2.50   $2.50  │  │
 │  └───────────────────────┘  │
-│                              │
 │  ┌───────────────────────┐  │
 │  │  PAYMENT DETAILS      │  │
 │  │  Cardholder Name      │  │
@@ -481,41 +556,66 @@ Subtitle: "Show this code when boarding"
 │  │  [________________]   │  │
 │  │  Expiration    CVV    │  │
 │  │  [________]  [____]   │  │
-│  │                       │  │
 │  │  [    Purchase     ]  │  │
 │  └───────────────────────┘  │
 └─────────────────────────────┘
 ```
 
+**Desktop (two-column: payment form 1fr | sticky summary 400px):**
+```
+┌──────────────────────────────────────────────────────────────┐
+│  ← Back to Details                                           │
+│  Checkout                                                    │
+├──────────────────────────────────┬───────────────────────────┤
+│  ┌────────────────────────────┐  │  ┌─────────────────────┐  │
+│  │  PAYMENT DETAILS           │  │  │  ORDER SUMMARY      │  │
+│  │                            │  │  │  🚌 Bus Single Ride │  │
+│  │  Cardholder Name           │  │  │  Bus · Single Ride  │  │
+│  │  [____________________]    │  │  │  ─────────────────  │  │
+│  │                            │  │  │  Quantity      1    │  │
+│  │  Card Number               │  │  │  Unit Price  $2.50  │  │
+│  │  [____________________]    │  │  │  ═════════════════  │  │
+│  │                            │  │  │  Total       $2.50  │  │
+│  │  Expiration    CVV         │  │  └─────────────────────┘  │
+│  │  [__________] [______]     │  │    ↑ sticky: stays        │
+│  │                            │  │    visible on scroll      │
+│  │  [      Purchase       ]   │  │                           │
+│  └────────────────────────────┘  │                           │
+└──────────────────────────────────┴───────────────────────────┘
+```
+
 ### 6.4 Confirmation (`/confirmation/{code}`)
 
+**Desktop and Mobile share the same structure — single centered column.**
+Desktop uses `max-width: 640px` with more top padding (48px).
+
 ```
-┌─────────────────────────────┐
-│         (✓ icon)            │
-│    Purchase Successful!     │
-│   Show this code when...    │
-│                              │
-│  ┌───────────────────────┐  │
-│  │   CONFIRMATION CODE   │  │
-│  │   bdfdcbdd-38f5-...   │  │ ← amber-tinted gradient bg
-│  └───────────────────────┘  │
-│                              │
-│  ┌───────────────────────┐  │
-│  │ Ticket    Bus Single  │  │
-│  │ ──────────────────── │  │
-│  │ Mode      Bus · SR   │  │
-│  │ ──────────────────── │  │
-│  │ Quantity   1          │  │
-│  │ ──────────────────── │  │
-│  │ Total     $2.50      │  │
-│  │ ──────────────────── │  │
-│  │ Card      **** 1111  │  │
-│  │ ──────────────────── │  │
-│  │ Purchased Feb 19...  │  │
-│  └───────────────────────┘  │
-│                              │
-│  [ Buy Another Ticket ]     │ ← secondary button
-└─────────────────────────────┘
+┌─────────────────────────────────────────┐
+│              (✓ icon)                   │
+│         Purchase Successful!            │
+│      Show this code when boarding       │
+│                                         │
+│  ┌───────────────────────────────────┐  │
+│  │       CONFIRMATION CODE           │  │
+│  │  bdfdcbdd-38f5-4606-94b4-...     │  │
+│  └───────────────────────────────────┘  │
+│                                         │
+│  ┌───────────────────────────────────┐  │
+│  │ Ticket         Bus Single Ride    │  │
+│  │ ─────────────────────────────── │  │
+│  │ Mode           Bus · Single Ride  │  │
+│  │ ─────────────────────────────── │  │
+│  │ Quantity        1                 │  │
+│  │ ─────────────────────────────── │  │
+│  │ Total          $2.50             │  │
+│  │ ─────────────────────────────── │  │
+│  │ Card           **** 1111         │  │
+│  │ ─────────────────────────────── │  │
+│  │ Purchased      Feb 19, 2026...  │  │
+│  └───────────────────────────────────┘  │
+│                                         │
+│       [ Buy Another Ticket ]            │
+└─────────────────────────────────────────┘
 ```
 
 ---
@@ -737,6 +837,53 @@ vaadin-integer-field[class~="quantity-stepper"]::part(input-field) {
 @media (min-width: 480px) {
   .ticket-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .page-container {
+    max-width: 960px;
+    padding: 0 40px;
+  }
+
+  .ticket-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .filter-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  /* Detail page: info left, purchase panel right */
+  .detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 32px;
+  }
+
+  /* Checkout: payment left, summary right */
+  .checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 32px;
+  }
+
+  .checkout-summary-sticky {
+    position: sticky;
+    top: 24px;
+  }
+
+  /* Confirmation: narrow centered */
+  .confirmation-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-top: 48px;
+  }
+
+  .confirmation-code-value {
+    font-size: 18px;
   }
 }
 
@@ -1014,6 +1161,42 @@ vaadin-integer-field[class~="quantity-stepper"]::part(input-field) {
 .back-link:hover {
   color: #d97706;
 }
+
+/* --- Responsive Layout Containers --- */
+
+/* Detail page: stacks on mobile, side-by-side on desktop */
+.detail-layout {
+  display: block; /* mobile: stacked */
+}
+
+/* Checkout: stacks on mobile, side-by-side on desktop */
+.checkout-layout {
+  display: block; /* mobile: stacked */
+}
+
+/* Confirmation: always centered, narrower than other pages */
+.confirmation-container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+/* Order summary icon box (desktop checkout) */
+.summary-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.summary-icon-box.mode-bus { background: rgba(245, 158, 11, 0.1); }
+.summary-icon-box.mode-train { background: rgba(251, 146, 60, 0.1); }
+.summary-icon-box.mode-metro { background: rgba(251, 191, 36, 0.1); }
+.summary-icon-box.mode-ferry { background: rgba(163, 230, 53, 0.1); }
 ```
 
 ---
