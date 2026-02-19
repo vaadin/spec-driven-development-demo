@@ -89,5 +89,8 @@ This is a concept demo: ticket data is seeded into an in-memory H2 database, pay
 
 - [Spec README](README.md) — process overview and workflow
 - [Architecture](architecture.md) — technology stack and application structure
+- [Design Specification](design.md) — shared visual components, responsive rules, and design asset index
+- [Design System](../design/design-system.md) — full color palette, typography, component CSS, and layout diagrams
+- [Design Screenshots](../design/screenshots/) — reference screenshots for all 4 screens (mobile + desktop)
 - [Use Case Template](use-cases/use-case-template.md) — template for feature specifications
 - [Verification](verification.md) — visual verification checklists

@@ -47,11 +47,41 @@
 
 ## UI / Routes
 
-- Ticket information displayed prominently at the top
-- Quantity selector (stepper or number input) with +/- controls
-- Subtotal displayed below the quantity selector
-- "Continue to Checkout" button at the bottom
-- Back navigation to browse page
+> **Design references:** [`Screen2.png`](../../design/screenshots/mobile/Screen2.png) (mobile), [`Screen2-desktop.png`](../../design/screenshots/desktop/Screen2-desktop.png) (desktop), [`design-system.md`](../../design/design-system.md) §5.4–5.6, §6.2. Shared rules: [`design.md`](../design.md).
+
+### Back Navigation
+
+- "← Back to Browse" link at top of page (amber text, no background)
+
+### Ticket Info
+
+- Large transit mode emoji
+- Ticket name as heading (detail title style)
+- Badge row: mode badge (colored) + type badge (neutral)
+- Description text (body text style)
+- Unit price with "per ticket" suffix (price in mode color, suffix muted)
+
+### Quantity Stepper
+
+- "Quantity" label above the stepper
+- Custom stepper: minus button, centered value display, plus button
+- Stepper buttons are 48×48px with amber-colored minus/plus icons
+- Value displays centered between buttons
+
+### Subtotal Box
+
+- Elevated card with subtle border
+- "SUBTOTAL" label (uppercase, muted, small text with letter-spacing)
+- Large price value in amber
+
+### Call to Action
+
+- "Continue to Checkout" — primary button (amber gradient, black text, full-width)
+
+### Responsive Layout
+
+- **Mobile/Tablet:** Single stacked column — ticket info, quantity stepper, subtotal, and CTA all stack vertically
+- **Desktop:** 2-panel layout — ticket info card on the left (1fr), purchase panel (quantity, subtotal, CTA) on the right (380px fixed)
 
 | Route | Access | Notes |
 |-------|--------|-------|

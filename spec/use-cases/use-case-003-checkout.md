@@ -51,10 +51,37 @@
 
 ## UI / Routes
 
-- Order summary section at the top (read-only)
-- Credit card form below with four fields: cardholder name, card number, expiration, CVV
-- "Purchase" button at the bottom — disabled until form is valid
-- Back navigation to the detail page
+> **Design references:** [`Screen3.png`](../../design/screenshots/mobile/Screen3.png) (mobile), [`Screen3-desktop.png`](../../design/screenshots/desktop/Screen3-desktop.png) (desktop), [`design-system.md`](../../design/design-system.md) §5.7–5.8, §6.3. Shared rules: [`design.md`](../design.md).
+
+### Back Navigation
+
+- "← Back to Details" link at top of page (amber text, no background)
+
+### Page Title
+
+- "Checkout" heading (page title style)
+
+### Order Summary Card
+
+- Section header: "ORDER SUMMARY" (uppercase, muted, small text with letter-spacing)
+- Ticket name and subtitle line (e.g., "Bus · Single Ride · Qty: 1")
+- Unit price row
+- Total price in amber (large, bold)
+
+### Payment Form Card
+
+- Section header: "PAYMENT DETAILS" (uppercase, muted, small text with letter-spacing)
+- Fields (each with label above input):
+  - Cardholder Name (full width)
+  - Card Number (full width, formatted with spaces as groups of 4)
+  - Expiration (MM/YY) and CVV — side-by-side in a single row
+- "Purchase" button — primary button (amber gradient, black text, full-width), disabled (reduced opacity) until all fields pass validation
+
+### Responsive Layout
+
+- **Mobile/Tablet:** Single column — order summary card on top, payment form card below
+- **Desktop:** 2-panel layout — payment form on the left (1fr), order summary on the right (400px fixed) with sticky positioning so the summary stays visible while scrolling the form
+- Note: column order swaps between mobile and desktop — summary is first on mobile but moves to the right sidebar on desktop
 
 | Route | Access | Notes |
 |-------|--------|-------|

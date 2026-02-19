@@ -49,10 +49,39 @@
 
 ## UI / Routes
 
-- Success banner or heading at the top
-- Ticket and order details in a clear summary layout
-- UUID confirmation code displayed large and prominent (the user's "ticket")
-- "Buy Another Ticket" button at the bottom
+> **Design references:** [`Screen4.png`](../../design/screenshots/mobile/Screen4.png) (mobile), [`Screen4-desktop.png`](../../design/screenshots/desktop/Screen4-desktop.png) (desktop), [`design-system.md`](../../design/design-system.md) §5.9–5.11, §6.4. Shared rules: [`design.md`](../design.md).
+
+### Success Header
+
+- Amber gradient circle (60px) with checkmark icon — centered
+- Heading: "Purchase Successful!" (page title style, centered)
+- Subtitle: "Show this code when boarding" (muted text, centered)
+
+### Confirmation Code Block
+
+- Amber gradient background card with amber border
+- Label: "CONFIRMATION CODE" (uppercase, muted, small text with letter-spacing)
+- UUID value in monospace font (15px mobile, 18px desktop), bold, full width with word-break
+
+### Details List Card
+
+- Label-value rows with subtle dividers between rows (no divider after last row):
+  - Ticket (e.g., "Bus Single Ride")
+  - Mode (e.g., "Bus · Single Ride")
+  - Quantity
+  - Total (price)
+  - Card (last 4 digits, e.g., "**** 1111")
+  - Purchased (date/time)
+
+### Call to Action
+
+- "Buy Another Ticket" — secondary button (transparent background, amber border and text, full-width)
+
+### Responsive Layout
+
+- **All sizes:** Single centered column, max-width 640px
+- Desktop gets additional top padding (48px vs 20px on mobile)
+- Confirmation code font size increases on desktop (18px vs 15px)
 
 | Route | Access | Notes |
 |-------|--------|-------|

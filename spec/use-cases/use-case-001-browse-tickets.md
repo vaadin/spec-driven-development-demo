@@ -48,9 +48,43 @@
 
 ## UI / Routes
 
-- Card grid layout, responsive (1 column on mobile, 2+ on wider screens)
-- Filter bar at the top with toggle buttons for each transit mode + "All"
-- Each card is a clickable unit that navigates to the detail view
+> **Design references:** [`Screen1.png`](../../design/screenshots/mobile/Screen1.png) (mobile), [`Screen1-desktop.png`](../../design/screenshots/desktop/Screen1-desktop.png) (desktop), [`design-system.md`](../../design/design-system.md) §5.1–5.2, §6.1. Shared rules: [`design.md`](../design.md).
+
+### Page Header
+
+- Title: "Transit Tickets" (page title style)
+- Subtitle: "Find and purchase your ride" (muted text below title)
+
+### Filter Bar
+
+- Horizontal row of text tabs: **All**, **Bus**, **Train**, **Metro**, **Ferry**
+- Underline tab style — active tab has amber text with 2px bottom border in amber
+- Inactive tabs are muted text, no underline
+- "All" is selected by default
+- Container has a bottom border separating it from the grid
+
+### Ticket Grid
+
+Each card displays (top to bottom):
+1. Transit mode emoji (🚌, 🚆, 🚇, or ⛴️)
+2. Ticket name (e.g., "Bus Single Ride")
+3. Badge row: mode badge (colored) + type badge (neutral), separated by a small gap
+4. Price in the transit mode's signature color
+
+Card styling:
+- 3px left border colored by transit mode
+- Hover effect: background shifts to elevated surface color
+- Entire card surface is clickable — navigates to detail page
+
+Responsive columns:
+- Mobile (< 480px): 1 column
+- Tablet (480–767px): 2 columns
+- Desktop (≥ 768px): 4 columns
+
+### Desktop
+
+- Content area: max-width 960px, centered
+- Desktop nav bar visible with "QUICK TRANSIT" branding
 
 | Route | Access | Notes |
 |-------|--------|-------|
