@@ -1,15 +1,11 @@
 package com.example.specdriven.tickets;
 
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -21,52 +17,68 @@ import java.util.List;
 public class TicketBrowseView extends VerticalLayout {
 
     private final TicketService ticketService;
-    private final FlexLayout cardGrid = new FlexLayout();
-    private Button activeFilter;
+    private final Div ticketGrid = new Div();
+    private NativeButton activeFilterBtn;
 
     public TicketBrowseView(TicketService ticketService) {
         this.ticketService = ticketService;
 
-        setSizeFull();
-        setPadding(true);
-        setSpacing(true);
+        setPadding(false);
+        setSpacing(false);
 
-        add(new H1("Transit Tickets"));
-        add(createFilterBar());
-        add(cardGrid);
+        Div container = new Div();
+        container.addClassName("page-container");
 
-        cardGrid.setFlexWrap(FlexLayout.FlexWrap.WRAP);
-        cardGrid.addClassName("ticket-card-grid");
-        cardGrid.setWidthFull();
+        // Header
+        Div header = new Div();
+        header.addClassName("browse-header");
+
+        H1 title = new H1("Transit Tickets");
+        title.addClassName("browse-title");
+
+        Paragraph subtitle = new Paragraph("Find and purchase your ride");
+        subtitle.addClassName("browse-subtitle");
+
+        header.add(title, subtitle);
+        container.add(header);
+
+        // Filter bar
+        container.add(createFilterBar());
+
+        // Ticket grid
+        ticketGrid.addClassName("ticket-grid");
+        container.add(ticketGrid);
+
+        add(container);
 
         showTickets(ticketService.findAll());
     }
 
-    private HorizontalLayout createFilterBar() {
-        HorizontalLayout bar = new HorizontalLayout();
-        bar.setSpacing(true);
+    private Div createFilterBar() {
+        Div bar = new Div();
         bar.addClassName("filter-bar");
 
-        Button allBtn = createFilterButton("All", null);
-        allBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        activeFilter = allBtn;
+        NativeButton allBtn = createFilterButton("All", null);
+        allBtn.addClassName("active");
+        activeFilterBtn = allBtn;
         bar.add(allBtn);
 
         for (TransitMode mode : TransitMode.values()) {
-            String label = mode.name().charAt(0) + mode.name().substring(1).toLowerCase();
-            bar.add(createFilterButton(label, mode));
+            bar.add(createFilterButton(getModeLabel(mode), mode));
         }
 
         return bar;
     }
 
-    private Button createFilterButton(String label, TransitMode mode) {
-        Button btn = new Button(label, e -> {
-            if (activeFilter != null) {
-                activeFilter.removeThemeVariants(ButtonVariant.LUMO_PRIMARY);
+    private NativeButton createFilterButton(String label, TransitMode mode) {
+        NativeButton btn = new NativeButton(label);
+        btn.addClassName("filter-btn");
+        btn.addClickListener(e -> {
+            if (activeFilterBtn != null) {
+                activeFilterBtn.removeClassName("active");
             }
-            e.getSource().addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-            activeFilter = e.getSource();
+            btn.addClassName("active");
+            activeFilterBtn = btn;
 
             if (mode == null) {
                 showTickets(ticketService.findAll());
@@ -78,39 +90,65 @@ public class TicketBrowseView extends VerticalLayout {
     }
 
     private void showTickets(List<Ticket> tickets) {
-        cardGrid.removeAll();
+        ticketGrid.removeAll();
         for (Ticket ticket : tickets) {
-            cardGrid.add(createTicketCard(ticket));
+            ticketGrid.add(createTicketCard(ticket));
         }
     }
 
     private Div createTicketCard(Ticket ticket) {
         Div card = new Div();
-        card.addClassName("ticket-card");
+        card.addClassNames("ticket-card", getModeClass(ticket.getTransitMode()));
 
-        String modeLabel = ticket.getTransitMode().name().charAt(0)
-                + ticket.getTransitMode().name().substring(1).toLowerCase();
-        String typeLabel = ticket.getTicketType() == TicketType.SINGLE_RIDE ? "Single Ride" : "Day Pass";
+        // Emoji icon
+        Div icon = new Div();
+        icon.addClassName("ticket-card-icon");
+        icon.setText(getEmoji(ticket.getTransitMode()));
 
-        H3 name = new H3(ticket.getName());
-        name.addClassName("ticket-card-title");
+        // Name
+        Div name = new Div();
+        name.addClassName("ticket-card-name");
+        name.setText(ticket.getName());
 
-        Span mode = new Span(modeLabel);
-        mode.addClassNames("badge", "badge-mode");
+        // Badges
+        Span modeBadge = new Span(getModeLabel(ticket.getTransitMode()));
+        modeBadge.addClassNames("badge", "badge-mode", ticket.getTransitMode().name().toLowerCase());
 
-        Span type = new Span(typeLabel);
-        type.addClassNames("badge", "badge-type");
+        Span typeBadge = new Span(getTypeLabel(ticket.getTicketType()));
+        typeBadge.addClassNames("badge", "badge-type");
 
-        HorizontalLayout badges = new HorizontalLayout(mode, type);
-        badges.setSpacing(false);
-        badges.addClassName("ticket-card-badges");
+        Div badges = new Div();
+        badges.add(modeBadge, typeBadge);
 
-        Paragraph price = new Paragraph(String.format("$%.2f", ticket.getPrice()));
-        price.addClassNames("price-text", "ticket-card-price");
+        // Price
+        Div price = new Div();
+        price.addClassNames("ticket-card-price", getModeClass(ticket.getTransitMode()));
+        price.setText(String.format("$%.2f", ticket.getPrice()));
 
-        card.add(name, badges, price);
+        card.add(icon, name, badges, price);
         card.addClickListener(e -> UI.getCurrent().navigate(TicketDetailView.class, ticket.getId()));
 
         return card;
+    }
+
+    private String getEmoji(TransitMode mode) {
+        return switch (mode) {
+            case BUS -> "\uD83D\uDE8C";
+            case TRAIN -> "\uD83D\uDE86";
+            case METRO -> "\uD83D\uDE87";
+            case FERRY -> "\u26F4\uFE0F";
+        };
+    }
+
+    private String getModeClass(TransitMode mode) {
+        return "mode-" + mode.name().toLowerCase();
+    }
+
+    private String getModeLabel(TransitMode mode) {
+        return mode.name().charAt(0) + mode.name().substring(1).toLowerCase();
+    }
+
+    private String getTypeLabel(TicketType type) {
+        return type == TicketType.SINGLE_RIDE ? "Single Ride" : "Day Pass";
     }
 }

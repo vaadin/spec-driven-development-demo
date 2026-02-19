@@ -1,12 +1,11 @@
 package com.example.specdriven.tickets;
 
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
@@ -24,9 +23,8 @@ public class TicketConfirmationView extends VerticalLayout implements HasUrlPara
 
     public TicketConfirmationView(PurchaseService purchaseService) {
         this.purchaseService = purchaseService;
-        setPadding(true);
-        setSpacing(true);
-        setMaxWidth("600px");
+        setPadding(false);
+        setSpacing(false);
     }
 
     @Override
@@ -48,45 +46,84 @@ public class TicketConfirmationView extends VerticalLayout implements HasUrlPara
     private void buildView(PurchaseOrder order) {
         removeAll();
 
-        H1 success = new H1("Purchase Successful!");
-        success.addClassName("success-text");
-        add(success);
+        Div container = new Div();
+        container.addClassNames("page-container", "confirmation-container");
 
-        // Confirmation code - prominent
+        // Success header
+        Div successIcon = new Div();
+        successIcon.addClassName("success-icon");
+        successIcon.setText("\u2713");
+
+        H1 heading = new H1("Purchase Successful!");
+        heading.addClassName("success-heading");
+
+        Paragraph subtitle = new Paragraph("Show this code when boarding");
+        subtitle.addClassName("success-subtitle");
+
+        container.add(successIcon, heading, subtitle);
+
+        // Confirmation code block
         Div codeBox = new Div();
-        codeBox.addClassName("content-box-accent");
+        codeBox.addClassName("confirmation-code-box");
 
-        Paragraph codeLabel = new Paragraph("Confirmation Code");
-        codeLabel.addClassName("label-text");
+        Div codeLabel = new Div();
+        codeLabel.addClassName("confirmation-code-label");
+        codeLabel.setText("CONFIRMATION CODE");
 
-        H2 codeValue = new H2(order.getConfirmationCode().toString());
-        codeValue.addClassName("code-value");
+        Div codeValue = new Div();
+        codeValue.addClassName("confirmation-code-value");
+        codeValue.setText(order.getConfirmationCode().toString());
 
         codeBox.add(codeLabel, codeValue);
-        add(codeBox);
+        container.add(codeBox);
 
-        // Ticket details
+        // Details list
         Ticket ticket = order.getTicket();
-        String modeLabel = ticket.getTransitMode().name().charAt(0)
-                + ticket.getTransitMode().name().substring(1).toLowerCase();
-        String typeLabel = ticket.getTicketType() == TicketType.SINGLE_RIDE ? "Single Ride" : "Day Pass";
+        String modeLabel = getModeLabel(ticket.getTransitMode());
+        String typeLabel = getTypeLabel(ticket.getTicketType());
 
-        Div details = new Div();
-        details.addClassName("content-box");
+        Div detailsList = new Div();
+        detailsList.addClassName("details-list");
 
-        details.add(new Paragraph("Ticket: " + ticket.getName()));
-        details.add(new Paragraph("Mode: " + modeLabel + " | Type: " + typeLabel));
-        details.add(new Paragraph("Quantity: " + order.getQuantity()));
-        details.add(new Paragraph(String.format("Total: $%.2f", order.getTotalPrice())));
-        details.add(new Paragraph("Card: **** **** **** " + order.getCardLastFour()));
-        details.add(new Paragraph("Purchased: "
-                + order.getPurchasedAt().format(DateTimeFormatter.ofPattern("MMM d, yyyy h:mm a"))));
-        add(details);
+        detailsList.add(createDetailRow("Ticket", ticket.getName()));
+        detailsList.add(createDetailRow("Mode", modeLabel + " \u00B7 " + typeLabel));
+        detailsList.add(createDetailRow("Quantity", String.valueOf(order.getQuantity())));
+        detailsList.add(createDetailRow("Total", String.format("$%.2f", order.getTotalPrice())));
+        detailsList.add(createDetailRow("Card", "**** " + order.getCardLastFour()));
+        detailsList.add(createDetailRow("Purchased",
+                order.getPurchasedAt().format(DateTimeFormatter.ofPattern("MMM d, yyyy h:mm a"))));
 
-        Button buyAnother = new Button("Buy Another Ticket",
-                e -> UI.getCurrent().navigate(TicketBrowseView.class));
-        buyAnother.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        buyAnother.addClassName("action-spacing");
-        add(buyAnother);
+        container.add(detailsList);
+
+        // Secondary button
+        NativeButton buyAnother = new NativeButton("Buy Another Ticket");
+        buyAnother.addClassName("secondary-btn");
+        buyAnother.getStyle().set("margin-top", "24px");
+        buyAnother.addClickListener(e -> UI.getCurrent().navigate(TicketBrowseView.class));
+        container.add(buyAnother);
+
+        add(container);
+    }
+
+    private Div createDetailRow(String label, String value) {
+        Div row = new Div();
+        row.addClassName("details-row");
+
+        Span rowLabel = new Span(label);
+        rowLabel.addClassName("details-row-label");
+
+        Span rowValue = new Span(value);
+        rowValue.addClassName("details-row-value");
+
+        row.add(rowLabel, rowValue);
+        return row;
+    }
+
+    private String getModeLabel(TransitMode mode) {
+        return mode.name().charAt(0) + mode.name().substring(1).toLowerCase();
+    }
+
+    private String getTypeLabel(TicketType type) {
+        return type == TicketType.SINGLE_RIDE ? "Single Ride" : "Day Pass";
     }
 }

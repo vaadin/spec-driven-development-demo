@@ -5,8 +5,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Hr;
+import com.vaadin.flow.component.html.NativeButton;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEnterEvent;
@@ -29,9 +30,8 @@ public class TicketCheckoutView extends VerticalLayout implements BeforeEnterObs
     public TicketCheckoutView(TicketService ticketService, PurchaseService purchaseService) {
         this.ticketService = ticketService;
         this.purchaseService = purchaseService;
-        setPadding(true);
-        setSpacing(true);
-        setMaxWidth("600px");
+        setPadding(false);
+        setSpacing(false);
     }
 
     @Override
@@ -53,35 +53,86 @@ public class TicketCheckoutView extends VerticalLayout implements BeforeEnterObs
     private void buildView(Ticket ticket) {
         removeAll();
 
-        Button backBtn = new Button("Back to Details",
-                e -> UI.getCurrent().navigate(TicketDetailView.class, ticket.getId()));
-        backBtn.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
-        add(backBtn);
+        Div container = new Div();
+        container.addClassName("page-container");
 
-        add(new H1("Checkout"));
+        // Back link
+        NativeButton backLink = new NativeButton("\u2190 Back to Details");
+        backLink.addClassName("back-link");
+        backLink.addClickListener(e -> UI.getCurrent().navigate(TicketDetailView.class, ticket.getId()));
+        container.add(backLink);
 
-        // Order summary
-        Div summary = new Div();
-        summary.addClassName("content-box");
+        // Page title
+        H1 pageTitle = new H1("Checkout");
+        pageTitle.addClassName("browse-title");
+        container.add(pageTitle);
 
-        String modeLabel = ticket.getTransitMode().name().charAt(0)
-                + ticket.getTransitMode().name().substring(1).toLowerCase();
-        String typeLabel = ticket.getTicketType() == TicketType.SINGLE_RIDE ? "Single Ride" : "Day Pass";
+        // Checkout layout (2-panel on desktop)
+        Div checkoutLayout = new Div();
+        checkoutLayout.addClassName("checkout-layout");
 
-        summary.add(new H3("Order Summary"));
-        summary.add(new Paragraph("Ticket: " + ticket.getName()));
-        summary.add(new Paragraph("Mode: " + modeLabel + " | Type: " + typeLabel));
-        summary.add(new Paragraph("Quantity: " + quantity));
-        summary.add(new Paragraph(String.format("Unit Price: $%.2f", ticket.getPrice())));
+        // Summary card (first in DOM for mobile order)
+        Div summaryCard = buildSummaryCard(ticket);
+
+        // Payment card
+        Div paymentCard = buildPaymentCard(ticket);
+
+        checkoutLayout.add(summaryCard, paymentCard);
+        container.add(checkoutLayout);
+
+        add(container);
+    }
+
+    private Div buildSummaryCard(Ticket ticket) {
+        Div card = new Div();
+        card.addClassNames("summary-card", "checkout-summary-sticky");
+
+        Div header = new Div();
+        header.addClassName("section-header");
+        header.setText("ORDER SUMMARY");
+
+        String modeLabel = getModeLabel(ticket.getTransitMode());
+        String typeLabel = getTypeLabel(ticket.getTicketType());
+
+        Div ticketName = new Div();
+        ticketName.addClassName("summary-ticket-name");
+        ticketName.setText(ticket.getName());
+
+        Div subtitle = new Div();
+        subtitle.addClassName("summary-ticket-subtitle");
+        subtitle.setText(modeLabel + " \u00B7 " + typeLabel + " \u00B7 Qty: " + quantity);
+
+        Div unitPrice = new Div();
+        unitPrice.addClassName("summary-unit-price");
+        unitPrice.setText(String.format("Unit price: $%.2f", ticket.getPrice()));
 
         BigDecimal total = ticket.getPrice().multiply(BigDecimal.valueOf(quantity));
-        Paragraph totalP = new Paragraph(String.format("Total: $%.2f", total));
-        totalP.addClassName("price-text");
-        summary.add(totalP);
-        add(summary);
 
-        // Credit card form
-        add(new H3("Payment Details"));
+        Hr divider = new Hr();
+        divider.addClassName("summary-divider");
+
+        Div totalRow = new Div();
+        totalRow.addClassName("summary-row");
+
+        Span totalLabel = new Span("Total");
+        totalLabel.addClassName("summary-row-label");
+
+        Span totalValue = new Span(String.format("$%.2f", total));
+        totalValue.addClassName("summary-total");
+
+        totalRow.add(totalLabel, totalValue);
+
+        card.add(header, ticketName, subtitle, unitPrice, divider, totalRow);
+        return card;
+    }
+
+    private Div buildPaymentCard(Ticket ticket) {
+        Div card = new Div();
+        card.addClassName("payment-card");
+
+        Div header = new Div();
+        header.addClassName("section-header");
+        header.setText("PAYMENT DETAILS");
 
         TextField nameField = new TextField("Cardholder Name");
         nameField.setWidthFull();
@@ -104,17 +155,17 @@ public class TicketCheckoutView extends VerticalLayout implements BeforeEnterObs
         cvvField.setPlaceholder("123");
         cvvField.setMaxLength(3);
         cvvField.setAllowedCharPattern("[0-9]");
-        cvvField.setWidth("120px");
 
-        add(nameField, cardNumberField, expiryField, cvvField);
+        Div inlineRow = new Div();
+        inlineRow.addClassName("payment-row-inline");
+        inlineRow.add(expiryField, cvvField);
 
         Button purchaseBtn = new Button("Purchase");
         purchaseBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         purchaseBtn.setEnabled(false);
-        purchaseBtn.addClassName("action-spacing");
-        add(purchaseBtn);
+        purchaseBtn.setWidthFull();
 
-        // Validation: enable button when all fields valid
+        // Validation
         Runnable validate = () -> {
             boolean nameValid = !nameField.getValue().isBlank();
             boolean cardValid = cardNumberField.getValue().matches("\\d{16}");
@@ -135,5 +186,16 @@ public class TicketCheckoutView extends VerticalLayout implements BeforeEnterObs
             UI.getCurrent().navigate(TicketConfirmationView.class,
                     order.getConfirmationCode().toString());
         });
+
+        card.add(header, nameField, cardNumberField, inlineRow, purchaseBtn);
+        return card;
+    }
+
+    private String getModeLabel(TransitMode mode) {
+        return mode.name().charAt(0) + mode.name().substring(1).toLowerCase();
+    }
+
+    private String getTypeLabel(TicketType type) {
+        return type == TicketType.SINGLE_RIDE ? "Single Ride" : "Day Pass";
     }
 }
