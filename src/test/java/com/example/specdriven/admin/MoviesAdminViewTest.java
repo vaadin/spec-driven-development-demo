@@ -12,7 +12,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.testbench.unit.SpringUIUnitTest;
+import com.vaadin.browserless.SpringBrowserlessTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @WithMockUser(roles = "ADMIN")
-class MoviesAdminViewTest extends SpringUIUnitTest {
+class MoviesAdminViewTest extends SpringBrowserlessTest {
 
     @Autowired
     private MovieRepository movieRepository;
@@ -48,7 +48,7 @@ class MoviesAdminViewTest extends SpringUIUnitTest {
         navigate(MoviesAdminView.class);
 
         @SuppressWarnings("unchecked")
-        Grid<Movie> grid = $(Grid.class).first();
+        Grid<Movie> grid = $(Grid.class).single();
         assertEquals(2, grid.getGenericDataView().getItems().count());
     }
 

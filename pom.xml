@@ -69,7 +69,7 @@
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-testbench-unit-junit6</artifactId>
+            <artifactId>browserless-test-junit6</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -9,7 +9,7 @@ import com.example.specdriven.data.ScreeningRepository;
 import com.example.specdriven.security.LoginView;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.testbench.unit.SpringUIUnitTest;
+import com.vaadin.browserless.SpringBrowserlessTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @WithMockUser(roles = "ADMIN")
-class BookingsAdminViewTest extends SpringUIUnitTest {
+class BookingsAdminViewTest extends SpringBrowserlessTest {
 
     @Autowired
     private MovieRepository movieRepository;
