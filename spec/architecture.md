@@ -10,7 +10,7 @@
 - Spring Boot — auto-configuration, embedded Tomcat
 - Java
 - Maven (wrapper included)
-- Database: [e.g., PostgreSQL, H2]
+- Database: H2 (embedded, file-persisted in dev, in-memory for tests)
 - Testing: JUnit 5, Vaadin Browserless Tests (`browserless-test-junit6`)
 
 ---
