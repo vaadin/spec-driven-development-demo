@@ -273,7 +273,60 @@ class BuyTicketsTest {
         assertTrue(detail.soldSeats().stream().anyMatch(s -> s.row() == 3 && s.seat() == 5));
     }
 
+    @Test
+    void endpointIsAnnotatedAnonymousAllowed() {
+        // AC: Page is accessible without authentication
+        assertTrue(ShowEndpoint.class.isAnnotationPresent(
+                com.vaadin.flow.server.auth.AnonymousAllowed.class));
+    }
+
+    @Test
+    void purchaseConfirmationIncludesTicketPositions() {
+        // BR-06: Confirmation includes details of purchased seats
+        List<ShowEndpoint.SeatRequest> seats = List.of(
+                new ShowEndpoint.SeatRequest(2, 4),
+                new ShowEndpoint.SeatRequest(3, 5)
+        );
+
+        ShowEndpoint.PurchaseRequest request = new ShowEndpoint.PurchaseRequest(
+                show.getId(), seats, "Alice", "alice@example.com");
+
+        ShowEndpoint.PurchaseResult result = showEndpoint.purchaseTickets(request);
+
+        assertTrue(result.success());
+        assertEquals(2, result.tickets().size());
+        assertTrue(result.tickets().stream().anyMatch(t -> t.row() == 2 && t.seat() == 4));
+        assertTrue(result.tickets().stream().anyMatch(t -> t.row() == 3 && t.seat() == 5));
+    }
+
     // --- Concurrent booking conflict test ---
+
+    @Test
+    void purchaseFailsWithBlankEmail() {
+        List<ShowEndpoint.SeatRequest> seats = List.of(new ShowEndpoint.SeatRequest(1, 1));
+
+        ShowEndpoint.PurchaseRequest request = new ShowEndpoint.PurchaseRequest(
+                show.getId(), seats, "Alice", "  ");
+
+        ShowEndpoint.PurchaseResult result = showEndpoint.purchaseTickets(request);
+
+        assertFalse(result.success());
+        assertEquals("Valid email is required", result.message());
+    }
+
+    @Test
+    void singleSeatPurchaseAllowed() {
+        // BR-01 lower boundary: 1 seat should be fine
+        List<ShowEndpoint.SeatRequest> seats = List.of(new ShowEndpoint.SeatRequest(1, 1));
+
+        ShowEndpoint.PurchaseRequest request = new ShowEndpoint.PurchaseRequest(
+                show.getId(), seats, "Alice", "alice@example.com");
+
+        ShowEndpoint.PurchaseResult result = showEndpoint.purchaseTickets(request);
+
+        assertTrue(result.success());
+        assertEquals(1, result.tickets().size());
+    }
 
     @Test
     void duplicateSeatForSameShowRejectedByUniqueConstraint() {
