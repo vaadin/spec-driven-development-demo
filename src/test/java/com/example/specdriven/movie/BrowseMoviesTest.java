@@ -4,6 +4,7 @@ import com.example.specdriven.show.ScreeningRoom;
 import com.example.specdriven.show.ScreeningRoomRepository;
 import com.example.specdriven.show.Show;
 import com.example.specdriven.show.ShowRepository;
+import com.example.specdriven.show.TicketRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,12 @@ class BrowseMoviesTest {
     @Autowired
     private ScreeningRoomRepository screeningRoomRepository;
 
+    @Autowired
+    private TicketRepository ticketRepository;
+
     @BeforeEach
     void setUp() {
+        ticketRepository.deleteAll();
         showRepository.deleteAll();
         movieRepository.deleteAll();
         screeningRoomRepository.deleteAll();

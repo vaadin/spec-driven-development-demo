@@ -7,4 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ShowRepository extends JpaRepository<Show, Long> {
 
     List<Show> findByMovieIdAndDateTimeAfterOrderByDateTimeAsc(Long movieId, LocalDateTime now);
+
+    long countByMovieId(Long movieId);
+
+    List<Show> findByMovieId(Long movieId);
 }
