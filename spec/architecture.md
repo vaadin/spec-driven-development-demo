@@ -12,7 +12,7 @@
 - Maven (wrapper included)
 - Database: H2 (embedded, file-persisted in dev, in-memory for tests)
 - Routing: Vaadin Hilla file-based routing only (`src/main/frontend/views/`). Do not use `src/main/frontend/routes.tsx`.
-- Testing: JUnit 5, Vaadin Browserless Tests (`browserless-test-junit6`)
+- Testing: JUnit 5, Vaadin Browserless Tests (`browserless-test-junit6`), Vitest for React views
 
 ---
 
@@ -38,6 +38,15 @@ com.example.specdriven/
   - Use `@WithAnonymousUser` for access control tests
   - Use `navigate(ViewClass.class)` to render views
   - Use `$(ComponentClass.class)` to query components, `test(component)` to interact
+- **React View Tests**: Vitest with React Testing Library
+  - Tests live in `src/test/frontend/`, mirroring the view structure
+  - Mock `@BrowserCallable` endpoint calls
+  - Test component rendering, user interactions, and navigation
+  - Run via `npx vitest run`
+- **Endpoint Tests**: For `@BrowserCallable` endpoints used by React views
+  - Tests live in `src/test/java/`, same as browserless tests
+  - Annotate with `@SpringBootTest`, autowire the endpoint
+  - Test business rules, validation, and data returned to the frontend
 - **Visual Verification**: Playwright MCP during development (not automated)
 
 ---
