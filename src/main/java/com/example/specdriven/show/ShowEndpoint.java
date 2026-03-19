@@ -21,7 +21,7 @@ public class ShowEndpoint {
         this.ticketRepository = ticketRepository;
     }
 
-    public record ShowDetail(Long id, String movieTitle, String dateTime, String roomName,
+    public record ShowDetail(Long id, Long movieId, String movieTitle, String dateTime, String roomName,
                              int rows, int seatsPerRow, List<SoldSeat> soldSeats) {
     }
 
@@ -54,6 +54,7 @@ public class ShowEndpoint {
 
         return new ShowDetail(
                 show.getId(),
+                show.getMovie().getId(),
                 show.getMovie().getTitle(),
                 show.getDateTime().toString(),
                 show.getScreeningRoom().getName(),

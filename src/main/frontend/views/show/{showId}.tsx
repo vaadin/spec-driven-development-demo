@@ -130,7 +130,7 @@ export default function ShowSeatSelectionView() {
               Seats: {confirmation.tickets.map(t => `${rowLabel(t.row)}${t.seat}`).join(', ')}
             </p>
           </div>
-          <a href={`/movie/${showId}`} className="btn-back">Back to Movie</a>
+          <a href={`/movie/${show.movieId}`} className="btn-back">Back to Movie</a>
         </div>
       </div>
     );
