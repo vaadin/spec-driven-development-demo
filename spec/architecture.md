@@ -56,7 +56,18 @@ com.example.specdriven/
 
 ---
 
-## 4. Deployment
+## 4. Security & Admin
+
+- **Spring Security** with `VaadinSecurityConfigurer`
+- In-memory admin user (`admin`/`admin`, role `ADMIN`) for development
+- Public views: `@AnonymousAllowed` (React Hilla endpoints, public routes)
+- Admin views: `@RolesAllowed("ADMIN")` (Vaadin Flow views)
+- Login: Vaadin `LoginForm` at `/login`
+- Admin index: `/admin` — links to all admin views (Manage Movies, Manage Shows)
+
+---
+
+## 5. Deployment
 
 - **Fly.io** — used for manual testing deployments
 - Deployed via `Dockerfile` (multi-stage build: JDK 21 build, JRE 21 Alpine runtime)

@@ -49,4 +49,5 @@
 
 | Route | Access | Notes |
 |-------|--------|-------|
+| `/admin` | authenticated (ADMIN) | Admin index with links to all admin views |
 | `/admin/movies` | authenticated (ADMIN) | Vaadin Flow view |
