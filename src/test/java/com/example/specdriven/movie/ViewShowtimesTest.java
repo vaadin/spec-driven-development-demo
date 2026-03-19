@@ -137,6 +137,48 @@ class ViewShowtimesTest {
     }
 
     @Test
+    void endpointIsAnnotatedAnonymousAllowed() {
+        // AC: Page is accessible without authentication
+        assertTrue(MovieEndpoint.class.isAnnotationPresent(
+                com.vaadin.flow.server.auth.AnonymousAllowed.class));
+    }
+
+    @Test
+    void showInfoIncludesIdForNavigation() {
+        // AC: Clicking showtime navigates to /show/{id} — requires show ID
+        showRepository.save(new Show(LocalDateTime.now().plusDays(1), movie, room));
+
+        MovieEndpoint.MovieDetail detail = movieEndpoint.getMovieDetail(movie.getId());
+
+        assertNotNull(detail.shows().get(0).id());
+    }
+
+    @Test
+    void showtimesFromMultipleDatesReturnedInOrder() {
+        // BR-02: Showtimes grouped by date and sorted chronologically
+        LocalDateTime day1 = LocalDateTime.now().plusDays(1).withHour(18).withMinute(0);
+        LocalDateTime day2 = LocalDateTime.now().plusDays(2).withHour(14).withMinute(0);
+        LocalDateTime day1Earlier = LocalDateTime.now().plusDays(1).withHour(14).withMinute(0);
+
+        showRepository.save(new Show(day1, movie, room));
+        showRepository.save(new Show(day2, movie, room));
+        showRepository.save(new Show(day1Earlier, movie, room));
+
+        MovieEndpoint.MovieDetail detail = movieEndpoint.getMovieDetail(movie.getId());
+
+        assertEquals(3, detail.shows().size());
+        // Should be: day1 14:00, day1 18:00, day2 14:00
+        LocalDateTime first = LocalDateTime.parse(detail.shows().get(0).dateTime());
+        LocalDateTime second = LocalDateTime.parse(detail.shows().get(1).dateTime());
+        LocalDateTime third = LocalDateTime.parse(detail.shows().get(2).dateTime());
+        assertTrue(first.isBefore(second));
+        assertTrue(second.isBefore(third));
+        // First two on same day, third on different day
+        assertEquals(first.toLocalDate(), second.toLocalDate());
+        assertNotEquals(second.toLocalDate(), third.toLocalDate());
+    }
+
+    @Test
     void nonExistentMovieReturnsNull() {
         MovieEndpoint.MovieDetail detail = movieEndpoint.getMovieDetail(99999L);
 
