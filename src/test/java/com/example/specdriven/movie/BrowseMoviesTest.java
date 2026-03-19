@@ -121,6 +121,26 @@ class BrowseMoviesTest {
     }
 
     @Test
+    void endpointIsAnnotatedAnonymousAllowed() {
+        // AC: Page is accessible without authentication
+        assertTrue(MovieEndpoint.class.isAnnotationPresent(
+                com.vaadin.flow.server.auth.AnonymousAllowed.class));
+    }
+
+    @Test
+    void movieSummaryIncludesId() {
+        // AC: Clicking a card navigates to /movie/{id} — requires ID in the summary
+        ScreeningRoom room = screeningRoomRepository.save(new ScreeningRoom("Room 1", 5, 8));
+        Movie movie = movieRepository.save(new Movie("Test Movie", "desc", 100, null));
+        showRepository.save(new Show(LocalDateTime.now().plusDays(1), movie, room));
+
+        List<MovieEndpoint.MovieSummary> results = movieEndpoint.getMoviesWithFutureShows();
+
+        assertEquals(1, results.size());
+        assertEquals(movie.getId(), results.get(0).id());
+    }
+
+    @Test
     void emptyResultWhenNoMoviesHaveFutureShows() {
         ScreeningRoom room = screeningRoomRepository.save(new ScreeningRoom("Room 1", 5, 8));
         Movie movie = movieRepository.save(new Movie("Old Movie", "desc", 90, null));
