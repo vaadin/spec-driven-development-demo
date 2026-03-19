@@ -32,6 +32,7 @@
 | BR-04 | Email must be a valid email format |
 | BR-05 | If another user buys the same seat between selection and purchase, show an error and refresh the seat map |
 | BR-06 | On successful purchase, tickets are created and the confirmation is shown |
+| BR-07 | Confirmation includes a "Back to Movie" link that navigates to the correct movie detail page |
 
 ---
 
@@ -44,6 +45,7 @@
 - [ ] Name and email fields are required and validated
 - [ ] Purchase creates ticket records and shows confirmation
 - [ ] Concurrent booking conflict is handled gracefully
+- [ ] Confirmation includes a "Back to Movie" link pointing to the correct movie
 - [ ] Page is accessible without authentication
 
 ---
