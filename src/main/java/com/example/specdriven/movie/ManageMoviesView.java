@@ -115,6 +115,8 @@ public class ManageMoviesView extends VerticalLayout {
             clearForm();
             currentMovie = new Movie("", "", 0, null);
             deleteButton.setVisible(false);
+            saveButton.setEnabled(true);
+            cancelButton.setEnabled(true);
         });
 
         HorizontalLayout content = new HorizontalLayout();
