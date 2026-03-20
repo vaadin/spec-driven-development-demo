@@ -15,6 +15,10 @@ Use the Playwright MCP server to visually verify **every view** after implementa
 - After changing styles, theme, or layout
 - After any change that affects routing/rendering
 
+### Default Browser Resolution
+
+Unless the use case specifies a particular resolution or size, use **1920x1080** as the default browser resolution for all visual verification.
+
 ### Steps
 
 1. **Ensure the application is running**
