@@ -43,15 +43,15 @@ com.example.specdriven/
   - Mock `@BrowserCallable` endpoint calls
   - Test component rendering, user interactions, and navigation
   - Run via `npx vitest run`
-- **Endpoint Tests**: For `@BrowserCallable` endpoints used by React views
+- **Service Tests**: JUnit tests for Spring `@Service` classes
   - Tests live in `src/test/java/`, same as browserless tests
-  - Annotate with `@SpringBootTest`, autowire the endpoint
-  - Test business rules, validation, and data returned to the frontend
-- **Test Coverage Requirements**: Every use case with a view must have both endpoint tests and view tests
-  - React views (`@BrowserCallable` endpoints): Endpoint tests (JUnit) + View tests (Vitest)
-  - Vaadin Flow views: Endpoint tests (JUnit) + Browserless view tests
-  - Endpoint tests cover business rules, validation, and data contracts
-  - View tests cover rendering, user interactions, and navigation
+  - Annotate with `@SpringBootTest`, autowire the service
+  - Test business rules, validation, and data access
+  - Endpoints (`@BrowserCallable`) typically delegate to services — test the service, not the endpoint
+- **Test Coverage Requirements**:
+  - React views: Vitest view tests
+  - Vaadin Flow views: Browserless view tests
+  - Services: JUnit service tests
 - **Visual Verification**: Playwright MCP during development (not automated)
 
 ---
