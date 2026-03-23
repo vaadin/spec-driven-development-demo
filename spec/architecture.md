@@ -71,3 +71,4 @@ com.example.specdriven/
 - Public views: `@AnonymousAllowed` (React Hilla endpoints, public routes)
 - Admin views: `@RolesAllowed("ADMIN")` (Vaadin Flow views)
 - Login: Vaadin `LoginForm` at `/login`
+- Logout: A **logout link** must be visible in the navigation (e.g., sidebar or header) on every authenticated view. It ends the session and redirects to the login page.
