@@ -20,6 +20,16 @@ A use case cannot be marked as Implemented unless all criteria in skills/use-cas
 | `skills/use-case-tests.md` | How to write tests for a use case | When writing tests |
 | `skills/visual-verification.md` | How to visually verify an implemented use case | During and after implementation |
 
+## Use Cases
+
+| Use Case | Title | Actor | Status |
+|----------|-------|-------|--------|
+| [UC-001](use-cases/use-case-001-manage-products.md) | Manage Products | Warehouse Manager | Pending |
+| [UC-002](use-cases/use-case-002-browse-inventory.md) | Browse Inventory | Warehouse Staff | Pending |
+| [UC-003](use-cases/use-case-003-receive-stock.md) | Receive Stock | Warehouse Staff | Pending |
+| [UC-004](use-cases/use-case-004-adjust-stock.md) | Adjust Stock | Warehouse Manager | Pending |
+| [UC-005](use-cases/use-case-005-dashboard.md) | Dashboard | Any user | Pending |
+
 ## Workflow
 
 ### Create Specs

@@ -4,16 +4,33 @@
 
 ## 1. Vision
 
-[One to two paragraphs describing the desired future state. What does success look like for the users?]
+A lightweight, internal Inventory Management application that lets a small warehouse team track products, monitor stock levels, receive inbound shipments, and correct discrepancies — all from a single web interface. The system provides real-time visibility into inventory health through a dashboard with low-stock alerts and recent activity, eliminating spreadsheet-based tracking and reducing stock-out incidents.
 
 ## 2. Users
 
-[ Describe users and what they can do]
+| Role | Description | Permissions |
+|------|-------------|-------------|
+| **Warehouse Manager** | Oversees inventory operations, maintains product catalog, resolves stock discrepancies | Full access — manage products, receive stock, adjust stock, view dashboard |
+| **Warehouse Staff** | Day-to-day receiving and monitoring | Browse inventory, receive stock, view dashboard |
+
+Both roles authenticate via the login page. Role assignment is managed outside the application (e.g., pre-seeded or admin config).
+
+### Demo Credentials
+
+For each demo account the password is the same as the username (e.g., `admin` / `admin`).
+
+| Username | Password | Role |
+|----------|----------|------|
+| `admin` | `admin` | Warehouse Manager (ADMIN) |
+| `staff` | `staff` | Warehouse Staff (USER) |
+
+The login page includes a button labelled "Forgot password". Clicking it adds a visible hint **directly on the login view** (not as a toast/notification) showing the demo credentials, so users can discover the available accounts without documentation.
 
 ## 3. Constraints
 
-- [Platform or integration requirement]
-- [Policy or standard]
+- Internal-only application — no public-facing views required
+- Single-warehouse deployment (no multi-location support)
+- All monetary values in a single currency (no currency conversion)
 
 > For technology stack and application structure details, see [`architecture.md`](architecture.md).
 
