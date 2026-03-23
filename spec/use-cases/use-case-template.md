@@ -44,7 +44,7 @@
 
 ## Tests
 
-> Write UI tests that verify the acceptance criteria above. See `architecture.md` § Testing for conventions.
+> Write UI tests that verify the acceptance criteria above. See `skills/use-case-tests.md` for conventions.
 
 - [ ] [Test class name — e.g., `BrowseMoviesTest`]
 - [ ] [What each test covers — map to acceptance criteria and business rules]
