@@ -1,1 +1,71 @@
-/* Add your styles here */
+/* GreenLedger Theme — Green & White */
+
+:root {
+    --primary: #2E7D32;
+    --primary-light: #4CAF50;
+    --primary-dark: #1B5E20;
+    --background: #FFFFFF;
+    --surface: #F5F9F5;
+    --text-primary: #1C1C1C;
+    --text-secondary: #5F6368;
+    --success: #388E3C;
+    --error: #D32F2F;
+    --warning: #F9A825;
+}
+
+html {
+    /* Aura accent color override to green */
+    --aura-accent-color-light: #2E7D32;
+    --aura-accent-color-dark: #4CAF50;
+    --aura-green: #2E7D32;
+}
+
+/* Status badges */
+.badge-pending {
+    background-color: var(--warning);
+    color: #1C1C1C;
+    padding: 2px 8px;
+    border-radius: var(--vaadin-radius-s);
+    font-size: var(--aura-font-size-xs);
+    font-weight: 500;
+}
+
+.badge-approved {
+    background-color: var(--success);
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: var(--vaadin-radius-s);
+    font-size: var(--aura-font-size-xs);
+    font-weight: 500;
+}
+
+.badge-rejected {
+    background-color: var(--error);
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: var(--vaadin-radius-s);
+    font-size: var(--aura-font-size-xs);
+    font-weight: 500;
+}
+
+/* Dashboard cards */
+.dashboard-card {
+    background: var(--surface);
+    border-radius: var(--vaadin-radius-m);
+    padding: var(--vaadin-space-l);
+    min-width: 200px;
+    flex: 1;
+}
+
+.dashboard-card .card-label {
+    color: var(--text-secondary);
+    font-size: var(--aura-font-size-s);
+    margin: 0;
+}
+
+.dashboard-card .card-value {
+    font-size: var(--aura-font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: var(--vaadin-space-xs) 0 0 0;
+}
