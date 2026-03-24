@@ -5,7 +5,7 @@
 
 > **When in doubt, consult the Vaadin MCP.** Whenever you are even slightly unsure about Vaadin API usage, component behavior, theme variables, styling, or best practices — use the Vaadin MCP server to look it up before guessing. Do not rely on memory for Vaadin specifics.
 
-Status: **Draft** (not yet implemented) or **Implemented**
+Status: **Pending** (not yet implemented) or **Implemented**
 
 > **A use case cannot be marked as Implemented unless all three are complete:**
 > 1. Code is written and functional
@@ -32,7 +32,7 @@ Status: **Draft** (not yet implemented) or **Implemented**
 
 ### Phase 2: Implement Specs
 
-For each **Draft** use case:
+For each **Pending** use case:
 
 4. **Implement** — Build the use case, referencing its spec for acceptance criteria.
 5. **Verify visually** — Follow `verification.md` checklists. Fix any issues found.
