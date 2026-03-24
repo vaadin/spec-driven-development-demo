@@ -21,9 +21,17 @@ export default function BrowseMoviesView() {
       padding: '2rem',
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem' }}>
-          CineMax
-        </h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+          <h1 style={{ fontSize: '2rem', fontWeight: 'bold', margin: 0 }}>
+            CineMax
+          </h1>
+          <a
+            href="/login"
+            style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', textDecoration: 'none' }}
+          >
+            Log in
+          </a>
+        </div>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
