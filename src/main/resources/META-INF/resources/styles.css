@@ -1,1 +1,59 @@
-/* Add your styles here */
+/* Triage — Custom Theme Styles */
+
+:root {
+    --vaadin-primary-color: #4A90B8;
+    --vaadin-primary-color-50: #EBF3F8;
+    --vaadin-primary-color-text: #3A7CA5;
+    --vaadin-success-color: #5BA88C;
+    --vaadin-error-color: #C75B5B;
+    --vaadin-warning-color: #D4A84B;
+}
+
+html {
+    --vaadin-background-color: #F7F9FB;
+}
+
+body {
+    background-color: #F7F9FB;
+    color: #2C3E50;
+}
+
+h1, h2, h3 {
+    color: #2C3E50;
+}
+
+/* Card styling */
+.card {
+    background: #FFFFFF;
+    border-radius: var(--vaadin-radius-m);
+    padding: var(--vaadin-padding-m);
+    border: 1px solid #D6E0E8;
+}
+
+/* Stat card styling */
+.stat-card {
+    background: #FFFFFF;
+    border-radius: var(--vaadin-radius-m);
+    padding: var(--vaadin-padding-l);
+    border: 1px solid #D6E0E8;
+    text-align: center;
+}
+
+.stat-card .stat-value {
+    font-size: var(--aura-font-size-xl);
+    font-weight: 600;
+    color: #4A90B8;
+}
+
+.stat-card .stat-label {
+    font-size: var(--aura-font-size-s);
+    color: #6B7D8D;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: var(--vaadin-padding-l);
+    color: #6B7D8D;
+    font-size: var(--aura-font-size-m);
+}
