@@ -51,3 +51,8 @@ html {
     gap: 20px;
     width: 100%;
 }
+
+/* Team workload warning row */
+vaadin-grid::part(workload-warning-row-cell) {
+    background-color: #FFF8E1;
+}
