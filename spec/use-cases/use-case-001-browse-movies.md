@@ -33,6 +33,7 @@
 - [ ] Only movies with future shows appear
 - [ ] Clicking a card navigates to the movie detail page (`/movie/{id}`)
 - [ ] Page is accessible without authentication
+- [ ] A "Log in" link is visible for admins to access the admin area
 
 ---
 
@@ -41,6 +42,7 @@
 - Responsive grid: 1 column on mobile, 2 on tablet, 3–4 on desktop
 - Movie cards use poster image as the main visual element
 - Clean, cinema-themed dark layout
+- A "Log in" link in the header area for admin access
 
 | Route | Access | Notes |
 |-------|--------|-------|
