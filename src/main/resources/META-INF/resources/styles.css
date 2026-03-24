@@ -1,1 +1,12 @@
-/* Add your styles here */
+/* CineMax Cinema Theme - Public Views */
+:root {
+    --primary: #E50914;
+    --primary-hover: #B2070F;
+    --surface: #141414;
+    --surface-card: #1F1F1F;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B3B3B3;
+    --seat-available: #2E7D32;
+    --seat-selected: #1565C0;
+    --seat-sold: #424242;
+}
