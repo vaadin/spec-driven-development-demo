@@ -1,1 +1,53 @@
-/* Add your styles here */
+/* Forge Theme — Orange & Black */
+
+html {
+    --vaadin-primary-color: #F57C00;
+    --vaadin-primary-text-color: #E65100;
+    --vaadin-primary-color-50pct: #FB8C0080;
+    --vaadin-primary-color-10pct: #FB8C001A;
+    --vaadin-error-color: #D32F2F;
+    --vaadin-success-color: #2E7D32;
+    --vaadin-warning-color: #F9A825;
+}
+
+/* Credentials hint on login page */
+.credentials-hint {
+    background: #FFF3E0;
+    border: 1px solid #FB8C00;
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.credentials-hint p {
+    margin: 4px 0;
+    font-size: var(--aura-font-size-s);
+}
+
+/* Project cards */
+.project-card {
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 20px;
+    background: white;
+    cursor: pointer;
+    min-width: 280px;
+    max-width: 400px;
+    flex: 1 1 300px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.project-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Card grid */
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
