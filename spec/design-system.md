@@ -61,7 +61,9 @@
 - Use Vaadin `VerticalLayout` / `HorizontalLayout` with Aura spacing tokens
 - Standard page padding: `--vaadin-space-l`
 - Card gap: `--vaadin-space-m`
-- Max content width: none (full-width grids); dashboard cards max 300px each
+- Max content width: none (full-width grids)
+- Dashboard layout: Three-column grid on desktop (≥1024px), two-column on tablet (640-1024px), single column on mobile (<640px)
+- Dashboard widgets: Equal width, with internal padding `--vaadin-space-l`
 
 ---
 
@@ -77,7 +79,9 @@
 | `TextField` / `IntegerField` | Form inputs | Always set a label; use `setRequiredIndicatorVisible(true)` for mandatory fields |
 | `Notification` | User feedback after actions | Success: bottom-stretch, 3s. Error: middle, persistent until closed |
 | `ConfirmDialog` | Destructive confirmations (delete) | Always require explicit confirmation for deletions |
-| `Badge` (Span with theme) | Stock status indicators | success = In Stock, warning = Low Stock, error = Out of Stock |
+| `Badge` (Span with theme) | Stock status indicators, shipment status | success = In Stock / Received, warning = Low Stock / Pending, error = Out of Stock |
+| `Chart` (Vaadin Charts) | Dashboard KPI trends | Use combo charts for multi-metric visualization (e.g., columns + area) |
+| `Icon` | Visual indicators in lists | Use `VaadinIcon.PACKAGE` for shipments, keep consistent across views |
 
 ---
 
@@ -93,8 +97,43 @@ Consistent visual language for inventory status across all views:
 
 ---
 
-## 8. Responsive Behavior
+## 8. Shipment Status Badges
+
+Visual indicators for shipment processing states:
+
+| Status | Badge color | Label | Usage |
+|--------|-------------|-------|-------|
+| Pending | `warning` | "Pending" | Shipment not yet confirmed/signed off |
+| Received | `success` | "Received" | Shipment confirmed as complete |
+
+---
+
+## 9. Dashboard Patterns
+
+### KPI Display
+- Display metric value prominently with large font size (`--aura-font-size-xxl` or larger)
+- Use color-coded indicators to distinguish different metrics (teal for products, amber for value)
+- Show metric label below value in smaller, secondary text
+- Include contextual information (e.g., "Last 12 months") when showing trends
+
+### Dashboard Widgets
+- Each widget is a card with white background, subtle shadow, and rounded corners
+- Widget header: title in `--aura-font-size-l`, aligned left
+- Widget content: KPIs at top, followed by chart or list
+- Maintain consistent internal padding (`--vaadin-space-l`)
+- Three-column grid on desktop, responsive stacking on smaller screens
+
+### Chart Integration
+- Use combo charts to show multiple related metrics (e.g., count as columns, value as area)
+- Chart height: ~200-250px for dashboard widgets
+- Show time period clearly (e.g., "Last 12 months")
+- Use consistent colors: teal (`--primary`) for primary metric, amber (`--warning`) for secondary value metric
+- Include subtle grid lines for readability
+
+---
+
+## 10. Responsive Behavior
 
 - **Mobile** (< 640px): Single column, stacked layouts, full-width cards
 - **Tablet** (640–1024px): Two-column grid, side-by-side content
-- **Desktop** (> 1024px): Multi-column grid, admin grid+form side by side
+- **Desktop** (> 1024px): Multi-column grid, three-column dashboard layout

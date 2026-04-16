@@ -1,9 +1,11 @@
 # UC-003: Receive Stock
 
-**As a** Warehouse Staff member, **I want to** record inbound shipments **so that** stock levels are updated accurately when goods arrive.
+**As a** Warehouse Staff member, **I want to** record inbound stock **so that** stock levels are updated accurately when goods arrive.
 
 **Status:** Pending
 **Date:** 2026-03-23
+
+> **Note:** This use case describes ad-hoc receiving of individual products. For shipment-based workflows (where multiple products arrive together from a supplier), see the Shipment entity in the data model. A future use case may be added to handle creating and receiving entire shipments, which would create a Shipment entity and associate multiple StockEvents with it. The current flow creates standalone StockEvents without a shipment association.
 
 ---
 
