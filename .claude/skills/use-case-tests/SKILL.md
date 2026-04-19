@@ -1,8 +1,9 @@
-# Writing Tests for a Use Case
-
-This file describes how to write tests for a given use case
-
 ---
+name: use-case-tests
+description: Write and run tests for a use case. Use when writing tests for an implemented use case.
+---
+
+# Writing Tests for a Use Case
 
 Each use case must be covered by the following tests:
 
@@ -27,8 +28,7 @@ Each use case must be covered by the following tests:
   - Tests live in `src/test/java/`, same as browserless tests
   - Annotate with `@SpringBootTest`, autowire the service
   - Test business rules, validation, and data access
-  - Endpoints (`@BrowserCallable`) typically delegate to services — test the service, not the endpoint
-
+  - Endpoints (`@BrowserCallable`) typically delegate to services -- test the service, not the endpoint
 
 ## Coverage Requirements
 - Each acceptance criterion should be covered by at least one test
@@ -39,5 +39,3 @@ Each use case must be covered by the following tests:
 - **Test class**: `[FeatureName]Test.java` or `[FeatureName].test.tsx` (e.g., `BrowseMoviesTest`, `BuyTickets.test.tsx`)
 - **Test methods**: descriptive names that map to acceptance criteria or business rules (e.g., `onlyItemsWithFutureEventsAreDisplayed`, `maximumSixItemsPerTransaction`)
 - **Structure**: one test class per use case, with individual test methods for each acceptance criterion and business rule edge case
-
----

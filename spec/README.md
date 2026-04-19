@@ -5,7 +5,7 @@ They are the single source of truth. Keep them up to date as the project evolves
 
 Status: **Pending** (not yet implemented) or **Implemented**
 
-A use case cannot be marked as Implemented unless all criteria in skills/use-case-implementation.md are fulfilled
+A use case cannot be marked as Implemented unless all criteria in the `/implement-use-case` skill are fulfilled
 
 ## File Overview
 
@@ -16,9 +16,9 @@ A use case cannot be marked as Implemented unless all criteria in skills/use-cas
 | `datamodel/datamodel.md` | Entity definitions and relationships | When adding data-driven features |
 | `use-cases/use-case-template.md` | Template for individual feature specs | Copy per feature as `use-case-NNN-short-name.md` |
 | `design-system.md` | Theme, component usage, and visual standards | When building or reviewing UI |
-| `skills/use-case-implementation.md` | How to implement a use case (steps, iteration) | When implementing a use case |
-| `skills/use-case-tests.md` | How to write tests for a use case | When writing tests |
-| `skills/visual-verification.md` | How to visually verify an implemented use case | During and after implementation |
+| `.claude/skills/implement-use-case/` | How to implement a use case (steps, iteration) | `/implement-use-case` skill |
+| `.claude/skills/use-case-tests/` | How to write tests for a use case | `/use-case-tests` skill |
+| `.claude/skills/visual-verification/` | How to visually verify an implemented use case | `/visual-verification` skill |
 
 ## Workflow
 
