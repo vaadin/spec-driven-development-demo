@@ -6,7 +6,7 @@ Project specs live in `spec/`. Read [`spec/README.md`](spec/README.md) first.
 
 ## Implementing a Use Case
 
-Read and follow every step in `spec/skills/use-case-implementation.md`. **Do not commit or move on to the next use case until all steps are done.**
+Use the `/implement-use-case` skill. **Do not commit or move on to the next use case until all steps are done.**
 
 ## Guardrails
 

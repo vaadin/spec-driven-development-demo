@@ -7,8 +7,10 @@
 
 **As a** [role/actor], **I want to** [capability] **so that** [business value/benefit].
 
-**Status:** [Pending | Implemented]
+**Status:** Pending
 **Date:** [YYYY-MM-DD]
+
+> A use case cannot be marked as **Implemented** unless all criteria in the `/implement-use-case` skill are fulfilled.
 
 ---
 

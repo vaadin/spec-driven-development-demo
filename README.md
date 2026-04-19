@@ -1,32 +1,15 @@
-# My Application README
+# Spec-Driven Development Template
 
-- [ ] TODO Replace or update this README with instructions relevant to your application
+A project template for spec-driven development with AI. Instead of describing features in chat prompts, you write specifications in structured markdown files. The AI reads the specs and implements them, including visual verification and automated tests.
 
-## Build & Run Commands
+## How It Works
 
-```bash
-./mvnw                            # Run in dev mode (default goal: spring-boot:run)
-./mvnw clean package              # Production build (JAR in target/)
-./mvnw test                       # Run all tests
-./mvnw test -Dtest=ClassName      # Run a single test class
-```
+1. **Define specs** in `spec/` - project context, architecture, data model, and individual use cases
+2. **Ask the AI to implement** a use case - it reads the spec, writes code, visually verifies with Playwright, and writes tests
+3. **Iterate** - update specs as the project evolves; they remain the single source of truth
 
-The app runs on port 8080 (configurable via `PORT` env var).
+See [`spec/README.md`](spec/README.md) for the full spec structure and workflow.
 
-To build a Docker image, run:
+## Development
 
-```bash
-docker build -t my-application:latest .
-```
-
-If you use commercial components, pass the license key as a build secret:
-
-```bash
-docker build --secret id=proKey,src=$HOME/.vaadin/proKey .
-```
-
-## Getting Started
-
-The [Quick Start](https://vaadin.com/docs/v25/getting-started/quick-start) tutorial helps you get started with Vaadin in
-around 10 minutes. This tutorial walks you through building a simple application, introducing the core concepts along
-the way.
+See [DEVELOPMENT.md](DEVELOPMENT.md) for build, run, and test commands.
