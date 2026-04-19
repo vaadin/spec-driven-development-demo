@@ -33,4 +33,7 @@ The following steps are mandatory and sequential. **Do not skip or reorder them.
 ### Step 4: Iterate
 - Keep iterating until everything looks and works great. Prefer great results over finishing quickly.
 
-**All steps must be completed before a use case is considered implemented. Do not commit until all steps are done.**
+### Step 5: Commit
+- Once all steps are complete and everything works, commit the changes using `/commit`.
+
+**All steps must be completed before a use case is considered implemented.**
