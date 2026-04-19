@@ -16,9 +16,6 @@ A use case cannot be marked as Implemented unless all criteria in the `/implemen
 | `datamodel/datamodel.md` | Entity definitions and relationships | When adding data-driven features |
 | `use-cases/use-case-template.md` | Template for individual feature specs | Copy per feature as `use-case-NNN-short-name.md` |
 | `design-system.md` | Theme, component usage, and visual standards | When building or reviewing UI |
-| `.claude/skills/implement-use-case/` | How to implement a use case (steps, iteration) | `/implement-use-case` skill |
-| `.claude/skills/use-case-tests/` | How to write tests for a use case | `/use-case-tests` skill |
-| `.claude/skills/visual-verification/` | How to visually verify an implemented use case | `/visual-verification` skill |
 
 ## Workflow
 

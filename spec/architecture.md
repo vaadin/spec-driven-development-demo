@@ -34,13 +34,13 @@ com.example.specdriven/
 - **Signals** are the primary mechanism for managing UI state
 - **Non-shared signals** for standard per-user UI state (e.g., form values, selection state, view-local data)
 - **Shared signals** when state must be visible across multiple users/sessions (collaborative or real-time features) — requires **server push** to be enabled
-- When using shared signals, enable push on the view/UI (e.g., `@Push` annotation)
+- When using shared signals, enable push on the Application class (i.e. add a `@Push` annotation)
 
 ---
 
 ## 4. Security & Admin
 
 - **Spring Security** with `VaadinSecurityConfigurer`
-- Public views: `@AnonymousAllowed` (React Hilla endpoints, public routes)
-- Admin views: `@RolesAllowed("ADMIN")` (Vaadin Flow views)
+- Public routes and endpoints: `@AnonymousAllowed`
+- Admin Flow routes: `@RolesAllowed("ADMIN")`
 - Login: Vaadin `LoginForm` at `/login`
