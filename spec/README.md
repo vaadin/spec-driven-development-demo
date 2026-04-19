@@ -3,10 +3,6 @@
 Specs are written first, then used as input for AI-driven implementation and verification.
 They are the single source of truth. Keep them up to date as the project evolves.
 
-Status: **Pending** (not yet implemented) or **Implemented**
-
-A use case cannot be marked as Implemented unless all criteria in the `/implement-use-case` skill are fulfilled
-
 ## File Overview
 
 | File | Purpose | When to Read |
