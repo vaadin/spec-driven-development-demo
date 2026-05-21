@@ -24,7 +24,9 @@ If the AI keeps getting something wrong or makes a choice you disagree with, the
 
 Features are specified as use cases in `spec/use-cases/`. Each use case is one file describing one capability (e.g. "browse movies", "buy a ticket", "admin manages screenings").
 
-Copy `spec/use-cases/use-case-template.md` to `use-case-NNN-short-name.md` and fill it in: main flow, business rules, acceptance criteria, routes. A fresh project may have no use cases yet — that's fine, start by writing the first one.
+The fastest way is `/new-use-case` — it interviews you for the details and writes a filled-in file in `spec/use-cases/` for you. A fresh project may have no use cases yet; just run the command to add the first one.
+
+If you'd rather write it by hand, copy `spec/use-cases/use-case-template.md` to `use-case-NNN-short-name.md` and fill it in: main flow, business rules, acceptance criteria, routes.
 
 ### 3. Implement use cases one at a time
 
