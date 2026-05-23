@@ -5,9 +5,9 @@ description: Define a new use case by interviewing the user, then write a filled
 
 # New Use Case
 
-Interview the user to capture a new use case, then write it to `spec/use-cases/use-case-NNN-short-name.md` using `spec/use-cases/use-case-template.md` as the structure.
+Capture a new use case through a four-phase conversation, then write it to `spec/use-cases/use-case-NNN-short-name.md` using `spec/use-cases/use-case-template.md` as the structure.
 
-The goal is a complete, implementation-ready spec. A use case that lacks actors, preconditions, a trigger, a main flow, alternative flows, postconditions, business rules, or routes is not done — keep interviewing until every section is filled in.
+The goal is a complete, implementation-ready spec. The template's structural sections — Goal, Actors, Preconditions, Trigger, Main Flow, Alternative Flows, Postconditions, Business Rules, Tests, UI/Routes — are all required. Keep the conversation going until every section is filled in.
 
 ## Before You Ask Anything
 
@@ -20,62 +20,85 @@ The goal is a complete, implementation-ready spec. A use case that lacks actors,
 
 If any of these files are missing, tell the user and stop; the project isn't ready for a use case yet.
 
-## Interview
+## Phase 1 — Free-form description
 
-Drive a focused conversation. Ask one topic at a time, in the order below. Keep questions short. Use `AskUserQuestion` when there is a clear small set of choices (primary actor, access level, UI tech, status). Use plain chat for open-ended answers (main flow, alternative flows, business rules). Never ask the user to "fill in the template" themselves — you are doing that for them.
+Open with a single open question. Do not start a structured interview yet.
+
+> *"Describe the feature in your own words — what does it do, who uses it, why? Don't worry about structure; tell it however feels natural."*
+
+Let the user write a paragraph or two. Do not interrupt with structural questions.
+
+**Thin-answer fallback.** If the response is one short sentence (roughly under 20 words) with no actor, no flow, and no rationale, ask one follow-up: *"Can you walk me through it a bit more — who uses it and what they actually do?"*. If the second answer is still that thin, skip Phase 2 entirely and run the structured questions in Phase 3 top to bottom. Do not try to extract from nothing.
+
+## Phase 2 — Extract and confirm
+
+Parse the description and pre-fill what you can. Be explicit about what is **stated** vs **inferred** vs **missing**, so the user can correct wrong inferences.
+
+Try to extract:
+- **Goal sentence** (`As a … I want to … so that …`)
+- **Primary actor** (often the role they named: "admin", "customer", "guest", etc.)
+- **Secondary actors** (other systems mentioned: a payment gateway, an email service)
+- **Main flow sketch** (any sequence of steps they described — order them, but don't yet rewrite as numbered actor/system steps)
+- **Short name** (kebab-case, 2–4 words, derived silently)
+- **Business rules** explicitly stated ("must be logged in", "max 6", "no past dates")
+- **UI hints** ("a table with…", "admin page", "the existing X view")
+
+Show the user a compact extraction summary, marking each item:
+- **[stated]** — they said it
+- **[inferred]** — you guessed from context
+- **[missing]** — needs to be asked
+
+Ask the user to correct inferences and flag anything wrong. Do not show the full markdown yet — keep the review skimmable.
+
+**Guardrail: never silently invent.** If something is not in the description, mark it `[missing]` rather than filling it in.
+
+## Phase 3 — Targeted follow-ups
+
+Ask only about what is still **[missing]** or **[inferred but uncertain]**. Order by structural importance, not template order. Skip topics that Phase 2 fully resolved.
+
+Use `AskUserQuestion` when there is a clear small set of choices (primary actor when obvious, UI tech, access level). Use plain chat for open-ended answers.
 
 After each answer, restate your understanding in one sentence before moving on, so misunderstandings surface early.
 
-### 1. Goal sentence (capability and value)
-- What capability is this use case about? Who is the actor? What value do they get?
-- Produce the `As a … I want to … so that …` sentence and confirm it. This becomes the **Goal:** line in the template.
+### A. Actors (if not confirmed in Phase 2)
+- Confirm the primary actor. If a secondary actor (external system, second role) is plausible, ask explicitly.
 
-### 2. Short name (derive silently)
-- Derive a kebab-case short name (2–4 words) from the goal sentence. Use it as the filename suffix. Do not ask the user — just pick a sensible one (e.g. "browse movies" → `browse-movies`, "user buys ticket" → `buy-ticket`). It will show up in the final summary; the user can correct it there if they care.
-
-### 3. Actors
-- Confirm the **primary actor** (the role that initiates the use case). The goal sentence usually names it — read it back.
-- Ask whether there are any **secondary actors** (external systems or other roles the use case interacts with — payment gateway, email service, second role). If none, omit the line.
-
-### 4. Preconditions
+### B. Preconditions
 - What must already be true for this use case to start? Authentication, prior use cases having run, data that must exist.
 - If the user genuinely has none, write "None".
 
-### 5. Trigger
+### C. Trigger
 - What event starts the use case? A click, a route navigation, a scheduled job, an external event.
 - Often inferable from the main flow's first step — propose and confirm.
 
-### 6. Main flow (happy path, numbered)
-- Ask the user to walk through what happens, step by step.
-- Write the steps as numbered actor/system pairs that alternate (`1. User clicks X. 2. System shows Y. 3. User submits Z. 4. System persists and navigates to W.`). Each step is one observable action.
-- If the user is vague, ask targeted follow-ups: entry point, what they see, what they click/type, what the system does, when the flow ends.
+### D. Main flow (numbered actor/system steps)
+- Take the sketch from Phase 2 and rewrite as numbered steps that alternate between actor and system. Each step is one observable action.
+- Read it back. Ask the user to fix sequencing, add missing steps, or split steps that are too coarse.
 - Keep steps atomic — alternative flows will branch off specific step numbers, so coarse steps are hard to extend later.
 
-### 7. Alternative flows
+### E. Alternative flows (non-negotiable — always probe)
 - Walk each main-flow step and ask: *"what can go wrong at this step?"* Look for: validation failures, permission denials, empty states, external-system errors, conflicts.
-- For each alt flow, capture: short name, the step it branches from, the condition that triggers it, the mini-flow, and whether it returns to the main flow or ends the use case.
+- For each alt flow capture: short name, branching step number, condition, mini-flow, and whether it returns to main flow or ends the use case.
 - If the user genuinely has nothing for a step, accept that and move on. Do not invent failures. But ask for every step.
 
-### 8. Postconditions
-- On success: what is true after the main flow completes? (E.g. "Order is persisted with status PENDING", "Email is sent".)
-- On failure: what is true if any alternative flow ends the use case? (E.g. "No order is created; cart is unchanged".)
+### F. Postconditions
+- On success: what is true after the main flow completes?
+- On failure: what is true if an alt flow ends the use case?
 
-### 9. Business rules
-- Ask what rules constrain the flow beyond what's already in the flows: required fields, limits, visibility/access, validation, edge cases, time/ordering rules.
-- Encourage at least two or three. Each rule should be testable. Reference the data model and existing use cases when relevant.
+### G. Business rules (beyond what was stated)
+- Ask for rules that constrain the flow but weren't covered: required fields, limits, visibility/access, time/ordering, edge cases.
+- Each rule must be testable. Reference the data model and existing use cases where relevant.
 
-### 10. UI / routes
-- Ask whether this is a public (React/Hilla) or admin (Vaadin Flow) view — this drives routing, access annotations, and test style. Use `AskUserQuestion` for this.
-- Capture the route path(s), access level (public / authenticated / ADMIN), and any layout requirements (component types, key interactions, responsive needs).
+### H. UI / routes
+- Public (React/Hilla) or admin (Vaadin Flow)? Use `AskUserQuestion`.
+- Route path(s), access level (public / authenticated / ADMIN), layout requirements (component types, key interactions, responsive needs).
 - If the user has a mockup or image, ask them to point at it and reference it in the file.
 
-### 11. Tests (placeholder)
-- Suggest a test class name based on the short name (e.g. `BrowseMoviesTest`, `BuyTickets.test.tsx`).
+### I. Tests (placeholder)
+- Propose a test class name based on the short name (e.g. `BrowseMoviesTest`, `BuyTickets.test.tsx`).
 - List planned coverage as bullets: Main Flow steps, each Alternative Flow, each Business Rule. The actual tests are written later by `/use-case-tests`; here we are just declaring intent.
 
-## Draft and Confirm
-
-Once all sections are gathered:
+## Phase 4 — Draft and confirm
 
 1. Show the user a compact summary of every section: goal, actors, preconditions, trigger, main flow (numbered), alt flows, postconditions, business rules, route table, planned tests. Do not show the full markdown yet — keep the review skimmable.
 2. Ask for any corrections or additions.
