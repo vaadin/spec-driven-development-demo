@@ -31,11 +31,16 @@ Each use case must be covered by the following tests:
   - Endpoints (`@BrowserCallable`) typically delegate to services -- test the service, not the endpoint
 
 ## Coverage Requirements
-- Each acceptance criterion should be covered by at least one test
-- Business rules must have dedicated tests (especially edge cases like limits, validation, and error handling)
+
+The use case's flows and business rules *are* the acceptance criteria. There is no separate acceptance-criteria list. Cover:
+
+- **Main Flow** — at least one test exercises the happy path end to end.
+- **Alternative Flows** — each `AF-N` has a dedicated test that triggers its condition and asserts its branch.
+- **Business Rules** — each `BR-N` has a dedicated test, especially edge cases like limits, validation, and error handling.
+- **Postconditions** — assert the success and failure postconditions in the relevant tests.
 
 ### Naming Conventions
 
 - **Test class**: `[FeatureName]Test.java` or `[FeatureName].test.tsx` (e.g., `BrowseMoviesTest`, `BuyTickets.test.tsx`)
-- **Test methods**: descriptive names that map to acceptance criteria or business rules (e.g., `onlyItemsWithFutureEventsAreDisplayed`, `maximumSixItemsPerTransaction`)
-- **Structure**: one test class per use case, with individual test methods for each acceptance criterion and business rule edge case
+- **Test methods**: descriptive names that map to a flow, an alternative flow, or a business rule (e.g., `onlyItemsWithFutureEventsAreDisplayed`, `maximumSixItemsPerTransaction`, `rejectsCheckoutWhenCartEmpty`)
+- **Structure**: one test class per use case, with individual test methods for the main flow, each alternative flow, and each business rule edge case
