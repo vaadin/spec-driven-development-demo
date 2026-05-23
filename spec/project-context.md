@@ -25,4 +25,3 @@
 - [Architecture](architecture.md) — technology stack and application structure
 - [Design System](design-system.md) — theme, component usage, and visual standards
 - [Use Case Template](use-cases/use-case-template.md) — template for feature specifications
-- [Skills](skills/) — implementation, testing, and visual verification guides
