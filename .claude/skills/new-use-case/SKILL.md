@@ -20,7 +20,7 @@ The goal is a complete, implementation-ready spec. The template's structural sec
 
 If any of these files are missing, tell the user and stop; the project isn't ready for a use case yet.
 
-## Phase 1 — Free-form description
+## Phase 1 — Free-form description and scope check
 
 Open with a single open question. Do not start a structured interview yet.
 
@@ -29,6 +29,22 @@ Open with a single open question. Do not start a structured interview yet.
 Let the user write a paragraph or two. Do not interrupt with structural questions.
 
 **Thin-answer fallback.** If the response is one short sentence (roughly under 20 words) with no actor, no flow, and no rationale, ask one follow-up: *"Can you walk me through it a bit more — who uses it and what they actually do?"*. If the second answer is still that thin, skip Phase 2 entirely and run the structured questions in Phase 3 top to bottom. Do not try to extract from nothing.
+
+### Scope check (before extracting)
+
+Before moving to Phase 2, decide what the user just described. Look for these signals:
+
+- **Multiple distinct actor/goal pairs** ("admins do X, customers do Y").
+- **Coordination words** covering separate flows: "and also", "then they can", "users can do X and Y and Z".
+- **Application-scope vocabulary**: "the application", "the system supports", "we want to build…".
+- Breadth and length well beyond one feature.
+
+Classify and respond:
+
+- **Single use case** → continue to Phase 2 normally.
+- **Multiple use cases** → name what you detected and list them. Example: *"It sounds like this is three use cases: 1) customer browses movies, 2) customer buys ticket, 3) admin manages schedule. Which one should we draft first?"* Draft only the chosen one. At the end, in "After Writing", suggest running `/new-use-case` again for each of the others.
+- **Whole application** → stop the skill. Do not try to write a use case. Tell the user this looks like application-level scope and suggest they fill in `spec/project-context.md` first (vision, users, scope, constraints), then come back to add use cases one feature at a time. Optionally offer to help sketch a candidate UC list from the description so they can pick one to draft later.
+- **Borderline (one UC with sub-flows, or several closely related UCs?)** → don't guess. Ask explicitly: *"Is this one use case with branches, or multiple use cases?"* Let the user decide, then proceed.
 
 ## Phase 2 — Extract and confirm
 
