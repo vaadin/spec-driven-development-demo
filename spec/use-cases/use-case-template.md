@@ -87,22 +87,21 @@
 
 ## Tests
 
-> Tests verify the flows and business rules above. There is no separate acceptance-criteria list — the flows and rules *are* the acceptance criteria. See `architecture.md` § Testing for conventions.
+> Tests verify the flows and business rules above. There is no separate acceptance-criteria list — the flows and rules *are* the acceptance criteria. The use case's test class, folder, and naming conventions are defined by the `/use-case-tests` skill — do not name a test class here.
 
-- [ ] [Test class name — e.g., `BrowseMoviesTest`]
-- [ ] Covers Main Flow (steps [N–M])
-- [ ] Covers AF-1, AF-2, ...
-- [ ] Covers BR-01, BR-02, ...
+- [ ] Main Flow covered (steps [N–M])
+- [ ] AF-1, AF-2, … covered
+- [ ] BR-01, BR-02, … covered
 
 ---
 
-## UI / Routes
+## UI Surface
 
-[Describe layout or interaction requirements. Reference a mockup if available.]
+> What the user sees and where they reach it. Keep this implementation-agnostic — no framework annotations, component class names, or file paths. The harness picks how to render it.
 
-- [Layout or component description]
+- [Page / screen description and what is on it]
 - [Key interaction or state]
 
-| Route | Access | Notes |
-|-------|--------|-------|
-| `[/path]` | [public/authenticated] | [Vaadin @Route] |
+| Page | Access |
+|------|--------|
+| [Short name — e.g., "Movie catalog"] | [Anonymous / Authenticated / Admin] |

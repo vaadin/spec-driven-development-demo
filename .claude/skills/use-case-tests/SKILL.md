@@ -5,42 +5,34 @@ description: Write and run tests for a use case. Use when writing tests for an i
 
 # Writing Tests for a Use Case
 
-Each use case must be covered by the following tests:
+Tests are organized around the **use case**, not around individual views or layers. A use case may span multiple views, services, and packages — its tests live together so the use case's behaviour can be read and run as a single unit.
 
-## UI tests, one of
-- **Browserless Tests**: Vaadin Browserless Testing (`SpringBrowserlessTest`)
-  - If the view is implemented using Vaadin Flow
-  - Tests live in `src/test/java/`, mirroring the main package structure
-  - Extend `SpringBrowserlessTest`, annotate with `@SpringBootTest`
-  - Use `@WithMockUser(roles = "ADMIN")` for admin views
-  - Use `@WithAnonymousUser` for access control tests
-  - Use `navigate(ViewClass.class)` to render views
-  - Use `$(ComponentClass.class)` to query components, `test(component)` to interact
-- **Vitest with React Testing Library**
-  - If the view is implemented using React
-  - Tests live in `src/test/frontend/`, mirroring the view structure
-  - Mock `@BrowserCallable` endpoint calls
-  - Test component rendering, user interactions, and navigation
-  - Run via `npx vitest run`
+## Structure
 
-## Backend / services tests
-  - JUnit tests for Spring `@Service` classes
-  - Tests live in `src/test/java/`, same as browserless tests
-  - Annotate with `@SpringBootTest`, autowire the service
-  - Test business rules, validation, and data access
-  - Endpoints (`@BrowserCallable`) typically delegate to services -- test the service, not the endpoint
+- **One test class per use case.** Name it after the use case: `UC001BrowseMovies`, `UC002BuyTickets`, etc. The `UC-NNN` prefix is the traceability link back to `spec/use-cases/use-case-NNN-*.md`.
+- **One folder per use case.** Place the class (and any supporting fixtures) in `src/test/java/com/example/specdriven/usecases/uc001_browse_movies/` (or `src/test/frontend/usecases/uc-001-browse-movies/` for tests that must run in the browser). Folder name mirrors the spec filename.
+- **Method names map directly to the spec.** Use the segments from the use-case document so a reader can jump from a failing test back to the exact line of spec it covers:
+  - `mainFlow_*` — one method per scenario through the Main Flow.
+  - `af1_*`, `af2_*`, … — one method per Alternative Flow, named for its condition.
+  - `br01_*`, `br02_*`, … — one method per Business Rule.
+
+## Choosing the test mechanism
+
+The tech is an implementation detail picked per method, not per use case. Within a single use-case class, mix as needed:
+
+- **Vaadin Browserless Test** (`SpringBrowserlessTest`, `@SpringBootTest`) for Flow views. Use `navigate(ViewClass.class)`, `$(ComponentClass.class)`, `test(component)`. Use `@WithMockUser(roles = "ADMIN")` for admin areas, `@WithAnonymousUser` for access-control checks.
+- **Vitest + React Testing Library** for Hilla/React views. Lives under `src/test/frontend/usecases/uc-NNN-*/`. Mock `@BrowserCallable` endpoints.
+- **Plain Spring `@SpringBootTest`** when a flow or business rule is best verified directly against a `@Service` (no UI involved). Prefer testing the service over the `@BrowserCallable` endpoint.
+
+A use case that combines an admin curation flow with a public browse flow ends up with both browserless and (if applicable) Vitest tests sharing the same `UC0xx*` name and the same per-use-case folder. They are the same use case's tests, written in whichever mechanism fits each step.
 
 ## Coverage Requirements
 
-The use case's flows and business rules *are* the acceptance criteria. There is no separate acceptance-criteria list. Cover:
+The use case's flows and business rules *are* the acceptance criteria. There is no separate acceptance-criteria list. Every test method must trace to one of:
 
-- **Main Flow** — at least one test exercises the happy path end to end.
-- **Alternative Flows** — each `AF-N` has a dedicated test that triggers its condition and asserts its branch.
-- **Business Rules** — each `BR-N` has a dedicated test, especially edge cases like limits, validation, and error handling.
-- **Postconditions** — assert the success and failure postconditions in the relevant tests.
+- **Main Flow** — at least one `mainFlow_*` test exercising the happy path end to end.
+- **Alternative Flows** — one `afN_*` test per `AF-N`, triggering its condition and asserting its branch.
+- **Business Rules** — one `brNN_*` test per `BR-N`, especially edge cases (limits, validation, error handling).
+- **Postconditions** — asserted inside the relevant flow tests.
 
-### Naming Conventions
-
-- **Test class**: `[FeatureName]Test.java` or `[FeatureName].test.tsx` (e.g., `BrowseMoviesTest`, `BuyTickets.test.tsx`)
-- **Test methods**: descriptive names that map to a flow, an alternative flow, or a business rule (e.g., `onlyItemsWithFutureEventsAreDisplayed`, `maximumSixItemsPerTransaction`, `rejectsCheckoutWhenCartEmpty`)
-- **Structure**: one test class per use case, with individual test methods for the main flow, each alternative flow, and each business rule edge case
+If a test doesn't map to Main Flow, an AF, or a BR, either it belongs to a different use case or the spec is missing the rule it covers — fix the spec, don't orphan the test.
