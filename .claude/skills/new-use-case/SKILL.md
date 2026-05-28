@@ -22,7 +22,7 @@ If any of these files are missing, tell the user and stop; the project isn't rea
 
 ## Interview
 
-Drive a focused conversation. Ask one topic at a time, in the order below. Keep questions short. Use `AskUserQuestion` when there is a clear small set of choices (role, access level, UI tech, status). Use plain chat for open-ended answers (main flow, business rules). Never ask the user to "fill in the template" themselves — you are doing that for them.
+Drive a focused conversation. Ask one topic at a time, in the order below. Keep questions short. When there is a clear small set of choices (role, access level, UI tech, status), present them as a multiple-choice question. Use plain chat for open-ended answers (main flow, business rules). Never ask the user to "fill in the template" themselves — you are doing that for them.
 
 After each answer, restate your understanding in one sentence before moving on, so misunderstandings surface early.
 
@@ -47,12 +47,12 @@ After each answer, restate your understanding in one sentence before moving on, 
 - Each criterion must be something a test can verify ("user sees X", "system rejects Y").
 
 ### 6. UI / routes
-- Ask whether this is a public (React/Hilla) or admin (Vaadin Flow) view — this drives routing, access annotations, and test style. Use `AskUserQuestion` for this.
+- Ask whether this is a public (React/Hilla) or admin (Vaadin Flow) view — this drives routing, access annotations, and test style. Ask this as a multiple-choice question.
 - Capture the route path(s), access level (public / authenticated / ADMIN), and any layout requirements (component types, key interactions, responsive needs).
 - If the user has a mockup or image, ask them to point at it and reference it in the file.
 
 ### 7. Tests (placeholder)
-- Suggest a test class name based on the short name (e.g. `BrowseMoviesTest`, `BuyTickets.test.tsx`) and a bullet list of what each test will cover. The actual tests are written later by `/use-case-tests`; here we are just declaring intent.
+- Suggest a test class name based on the short name (e.g. `BrowseMoviesTest`, `BuyTickets.test.tsx`) and a bullet list of what each test will cover. The actual tests are written later by the use-case-tests workflow; here we are just declaring intent.
 
 ## Draft and Confirm
 
@@ -74,5 +74,5 @@ Once all sections are gathered:
 ## After Writing
 
 - Print the path of the new file and a one-line summary.
-- Suggest the obvious next step: `/implement-use-case <NNN>` when the user is ready to build it.
+- Suggest the obvious next step: ask to implement use case `<NNN>` when ready to build it.
 - Do **not** start implementing, do **not** commit, do **not** modify any other spec files. This skill's job ends at a written use case.
