@@ -22,7 +22,7 @@ If any of these files are missing, tell the user and stop; the project isn't rea
 
 ## Interview
 
-Drive a focused conversation. Ask one topic at a time, in the order below. Keep questions short. Use `AskUserQuestion` when there is a clear small set of choices (primary actor, access level, UI tech, status). Use plain chat for open-ended answers (main flow, alternative flows, business rules). Never ask the user to "fill in the template" themselves — you are doing that for them.
+Drive a focused conversation. Ask one topic at a time, in the order below. Keep questions short. When there is a clear small set of choices (primary actor, access level, UI tech, status), present them as a multiple-choice question. Use plain chat for open-ended answers (main flow, alternative flows, business rules). Never ask the user to "fill in the template" themselves — you are doing that for them.
 
 After each answer, restate your understanding in one sentence before moving on, so misunderstandings surface early.
 
@@ -65,7 +65,7 @@ After each answer, restate your understanding in one sentence before moving on, 
 - Encourage at least two or three. Each rule should be testable. Reference the data model and existing use cases when relevant.
 
 ### 10. UI / routes
-- Ask whether this is a public (React/Hilla) or admin (Vaadin Flow) view — this drives routing, access annotations, and test style. Use `AskUserQuestion` for this.
+- Ask whether this is a public (React/Hilla) or admin (Vaadin Flow) view — this drives routing, access annotations, and test style. Ask this as a multiple-choice question.
 - Capture the route path(s), access level (public / authenticated / ADMIN), and any layout requirements (component types, key interactions, responsive needs).
 - If the user has a mockup or image, ask them to point at it and reference it in the file.
 
