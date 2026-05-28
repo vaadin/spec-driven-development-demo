@@ -10,7 +10,7 @@
 **Status:** Pending
 **Date:** [YYYY-MM-DD]
 
-> A use case cannot be marked as **Implemented** unless all criteria in the `/implement-use-case` skill are fulfilled.
+> A use case cannot be marked as **Implemented** unless all criteria in the use-case implementation workflow are fulfilled.
 
 ---
 

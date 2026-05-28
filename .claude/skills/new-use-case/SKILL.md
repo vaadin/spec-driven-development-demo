@@ -93,5 +93,5 @@ Once all sections are gathered:
 ## After Writing
 
 - Print the path of the new file and a one-line summary.
-- Suggest the obvious next step: `/implement-use-case <NNN>` when the user is ready to build it.
+- Suggest the obvious next step: ask to implement use case `<NNN>` when ready to build it.
 - Do **not** start implementing, do **not** commit, do **not** modify any other spec files. This skill's job ends at a written use case.

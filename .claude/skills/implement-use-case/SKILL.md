@@ -26,16 +26,16 @@ The following steps are mandatory and sequential. **Do not skip or reorder them.
 
 ### Step 2: Visually verify with Playwright MCP
 - **This step is mandatory.** Do not skip it, do not defer it.
-- Run `/visual-verification` and follow every check: start the app, navigate every route, walk through the main flow, take screenshots, and validate the visual appearance.
+- Follow the visual-verification workflow end-to-end: start the app, navigate every route, walk through the main flow, take screenshots, and validate the visual appearance.
 - Fix any issues found before moving on.
 
 ### Step 3: Write and run automated tests
-- Run `/use-case-tests` and ensure all tests pass.
+- Follow the use-case-tests workflow and ensure all tests pass.
 
 ### Step 4: Iterate
 - Keep iterating until everything looks and works great. Prefer great results over finishing quickly.
 
 ### Step 5: Commit
-- Once all steps are complete and everything works, commit the changes using `/commit`.
+- Once all steps are complete and everything works, create a git commit with the changes.
 
 **All steps must be completed before a use case is considered implemented.**
