@@ -8,6 +8,8 @@ argument-hint: "[use-case-name or number]"
 
 Implement the use case specified by $ARGUMENTS.
 
+A use case is the unit of work, not a view. A single use case may produce one view, several views, or no UI at all — let the spec drive that, and keep tests grouped per use case as defined by `/use-case-tests`.
+
 ## Input
 
 1. The use case document itself (in `spec/use-cases/`)

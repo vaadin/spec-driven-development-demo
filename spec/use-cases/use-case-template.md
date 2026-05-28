@@ -1,11 +1,11 @@
 # UC-[NNN]: [Feature Title]
 
 > Copy this template for each feature as `use-case-NNN-short-name.md`.
-> Replace all `[bracketed text]` with your content.
+> Replace all `[bracketed text]` with your content. Remove sections that genuinely do not apply (e.g. no secondary actor), but do not invent shortcuts — Preconditions, Trigger, Main Flow, and Postconditions are mandatory.
 
 ---
 
-**As a** [role/actor], **I want to** [capability] **so that** [business value/benefit].
+**Goal:** As a [role], I want to [capability] so that [business value].
 
 **Status:** Pending
 **Date:** [YYYY-MM-DD]
@@ -14,15 +14,64 @@
 
 ---
 
+## Actors
+
+- **Primary actor:** [The role that initiates the use case — e.g., "Registered customer"]
+- **Secondary actors:** [Other systems or roles the use case interacts with — e.g., "Payment gateway". Omit if none.]
+
+---
+
+## Preconditions
+
+- [What must be true before the use case can start — e.g., "User is signed in"]
+- [State that other use cases or setup steps must have established]
+
+---
+
+## Trigger
+
+[The event that starts the use case — e.g., "User clicks 'Checkout' on the cart page".]
+
+---
+
 ## Main Flow
 
-[Describe the happy path from the user's perspective. Write in first person as if you are the user.]
+> Numbered steps alternating between actor and system. Each step is one observable action. Keep steps atomic so alternative flows can branch from a specific step number.
 
-- [I open / I navigate to...]
-- [I see...]
-- [I do X...]
-- [The system responds with Y...]
-- [Continue until completion]
+1. [Actor] [does X].
+2. [System] [responds with Y].
+3. [Actor] [does Z].
+4. [System] [confirms / persists / navigates].
+5. ...
+
+---
+
+## Alternative Flows
+
+> Branches off the main flow. Reference the step number where the branch occurs. Cover validation failures, permission denials, empty states, and external-system errors.
+
+### AF-1: [Short name — e.g., "Invalid input"]
+
+**Branches from:** Main Flow step [N]
+**Condition:** [What makes this branch fire — e.g., "Email field is empty"]
+
+1. [System] [shows error / takes corrective action].
+2. [Actor] [...].
+3. Returns to Main Flow step [N] / Use case ends.
+
+### AF-2: [Short name]
+
+**Branches from:** Main Flow step [N]
+**Condition:** [...]
+
+1. ...
+
+---
+
+## Postconditions
+
+- **On success:** [What is true after the main flow completes — e.g., "Order is persisted with status PENDING"]
+- **On failure:** [What is true if any alternative flow ends the use case — e.g., "No order is created; cart is unchanged"]
 
 ---
 
@@ -36,30 +85,23 @@
 
 ---
 
-## Acceptance Criteria
-
-- [ ] [Criterion 1 — testable statement of expected behaviour]
-- [ ] [Criterion 2 — edge case or validation check]
-- [ ] [Criterion 3]
-
----
-
 ## Tests
 
-> Write UI tests that verify the acceptance criteria above. See `architecture.md` § Testing for conventions.
+> Tests verify the flows and business rules above. There is no separate acceptance-criteria list — the flows and rules *are* the acceptance criteria. The use case's test class, folder, and naming conventions are defined by the `/use-case-tests` skill — do not name a test class here.
 
-- [ ] [Test class name — e.g., `BrowseMoviesTest`]
-- [ ] [What each test covers — map to acceptance criteria and business rules]
+- [ ] Main Flow covered (steps [N–M])
+- [ ] AF-1, AF-2, … covered
+- [ ] BR-01, BR-02, … covered
 
 ---
 
-## UI / Routes
+## UI Surface
 
-[Describe layout or interaction requirements. Reference a mockup if available.]
+> What the user sees and where they reach it. Keep this implementation-agnostic — no framework annotations, component class names, or file paths. The harness picks how to render it.
 
-- [Layout or component description]
+- [Page / screen description and what is on it]
 - [Key interaction or state]
 
-| Route | Access | Notes |
-|-------|--------|-------|
-| `[/path]` | [public/authenticated] | [Vaadin @Route] |
+| Page | Access |
+|------|--------|
+| [Short name — e.g., "Movie catalog"] | [Anonymous / Authenticated / Admin] |

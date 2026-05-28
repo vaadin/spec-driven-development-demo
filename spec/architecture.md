@@ -12,7 +12,7 @@
 - Maven (wrapper included)
 - Database: [e.g., PostgreSQL, H2]
 - Routing: Vaadin Flow views use `@Route`. Hilla React views use file-based routing (`src/main/frontend/views/`), not `src/main/frontend/routes.tsx`.
-- Testing: JUnit 5, Vaadin Browserless Tests (`browserless-test-junit6`), Vitest for React views
+- Testing: JUnit 5, Vaadin Browserless Tests (`browserless-test-junit6`), Vitest for React views. Tests are organized per use case, not per view — see `/use-case-tests` for the convention.
 
 ---
 
